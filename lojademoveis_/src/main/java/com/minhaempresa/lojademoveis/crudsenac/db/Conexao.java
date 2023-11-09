@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.minhaempresa.lojademoveis.crudsenac.dao;
+package com.minhaempresa.lojademoveis.crudsenac.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
@@ -20,10 +19,10 @@ public class Conexao {
     public static String DRIVER = "com.mysql.cj.jdbc.Driver";  //A partir da versao 8.0, mudou para com.mysql.cj.jdbc.Driver (Connector/J)                   
     
     public static String SERVER = "localhost";
-    public static String DATABASE = "lojamvc";              //nome do seu banco de dados
+    public static String DATABASE = "lojamoveis";              //nome do seu banco de dados
     
     public static String LOGIN = "root";                     //nome de um usuário de seu BD      
-    public static String SENHA = "P@$$w0rd";                         //sua senha de acesso
+    public static String SENHA = "Lucas2000";                         //sua senha de acesso
     
     public static String URL = "";
     

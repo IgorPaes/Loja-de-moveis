@@ -4,7 +4,9 @@
  */
 package com.minhaempresa.lojademoveis.crudsenac.views;
 
+import com.minhaempresa.lojademoveis.crudsenac.dao.ClientesDAO;
 import com.minhaempresa.lojademoveis.crudsenac.models.Cliente;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -831,6 +833,7 @@ public class TelaInicial extends javax.swing.JFrame {
         int posicaoSexo = comboSexo.getSelectedIndex();
         String estadoCivil = comboEstadoCivil.getSelectedItem().toString();
         String data = txtData.getText();
+        boolean retorno;
         
         char sexo = ' ';
         if(posicaoSexo == 1) {
@@ -841,6 +844,13 @@ public class TelaInicial extends javax.swing.JFrame {
         
         Cliente infos = new Cliente(nome, cpf, telefone, email, sexo, estadoCivil, data);
         
+         retorno = ClientesDAO.salvar(infos);
+
+            if(retorno == true){
+                JOptionPane.showMessageDialog(rootPane, "Sucesso - Nota gerada: " + infos.getIdCliente());
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Falha!");
+            }
         
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 

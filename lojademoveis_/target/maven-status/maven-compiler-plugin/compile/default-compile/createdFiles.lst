@@ -20,10 +20,14 @@ com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin$2.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaRelatório$1.class
 com\minhaempresa\lojademoveis\crudsenac\models\Lojademoveis.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaRelatório.class
+com\minhaempresa\lojademoveis\crudsenac\db\Conexao.class
+com\minhaempresa\lojademoveis\crudsenac\models\Cliente.class
+com\minhaempresa\lojademoveis\crudsenac\models\Endereco.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaCadastroEndereço$3.class
+com\minhaempresa\lojademoveis\crudsenac\dao\ClientesDAO.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$1.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$6.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial.class
-com\minhaempresa\lojademoveis\crudsenac\dao\Conexao.class
+com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$10.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$9.class

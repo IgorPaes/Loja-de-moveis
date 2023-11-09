@@ -4,8 +4,11 @@
  */
 package com.minhaempresa.lojademoveis.crudsenac.models;
 
+import java.text.SimpleDateFormat;
+
 
 public class Cliente {
+    
     
     private int idCliente;
     private String nome;
@@ -44,6 +47,7 @@ public class Cliente {
     }
 
     public String getCpf() {
+        //this.cpf = this.cpf.replaceAll("'.' '-'", "");
         return cpf;
     }
 
@@ -52,6 +56,9 @@ public class Cliente {
     }
 
     public String getTelefone() {
+        this.telefone = this.telefone.replaceAll("'+'", "");
+        this.telefone = this.telefone.replaceAll("'()'", "");
+        this.telefone = this.telefone.replaceAll("'-'", "");
         return telefone;
     }
 
@@ -88,6 +95,8 @@ public class Cliente {
     }
 
     public void setData(String data) {
+         // SimpleDateFormat converte = new SimpleDateFormat("yyyy/MM/dd");
+          //this.data = converte.format(this.data);
         this.data = data;
     }
 
@@ -97,6 +106,26 @@ public class Cliente {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+    
+      public String cpfFormatada(){
+        this.cpf = this.cpf.replaceAll("'.' '-'", "");
+      
+        return this.cpf;
+    }
+    
+    public String telefoneFormatada(){
+        this.telefone = this.telefone.replaceAll("'+''()' '-'", "");
+      
+        return this.telefone;
+    }
+    
+      public String dataFormatada(){
+        
+          SimpleDateFormat converte = new SimpleDateFormat("yyyy/MM/dd");
+          this.data = converte.format(this.data);
+      
+        return this.data;
     }
     
 }

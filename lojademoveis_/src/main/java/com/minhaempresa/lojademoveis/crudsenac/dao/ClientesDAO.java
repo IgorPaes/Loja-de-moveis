@@ -4,6 +4,7 @@
  */
 package com.minhaempresa.lojademoveis.crudsenac.dao;
 
+import com.minhaempresa.lojademoveis.crudsenac.db.Conexao;
 import com.minhaempresa.lojademoveis.crudsenac.models.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,9 +26,19 @@ public class ClientesDAO {
         try {
             conn = Conexao.abrirConexao();
             
-            PreparedStatement comandoSQL = conn.prepareStatement("INSERT INTO...");
+            PreparedStatement comandoSQL = conn.prepareStatement("INSERT INTO clientes (NOME, CPF, TELEFONE, EMAIL, SEXO, ESTADO_CIVIL, DATA_NASCIMENTO) VALUES(?,?,?,?,?,?,?)"
+                                                , PreparedStatement.RETURN_GENERATED_KEYS );
             //comandoSQL.setInt(1, obj.g);
             
+            comandoSQL.setString(1, obj.getNome());
+            comandoSQL.setString(2, obj.getCpf());
+            comandoSQL.setString(3, obj.getTelefone());
+            comandoSQL.setString(4, obj.getEmail());
+            comandoSQL.setString(5, String.valueOf(obj.getSexo()));
+            comandoSQL.setString(6, obj.getEstadoCivil());
+            comandoSQL.setString(7, "2000/02/02");
+            
+            //Passo 4 - Executar o comando 
             comandoSQL.executeUpdate();
             
             retorno = true;
