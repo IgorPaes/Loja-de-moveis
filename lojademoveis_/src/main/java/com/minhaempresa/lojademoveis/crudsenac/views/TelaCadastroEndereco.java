@@ -4,16 +4,22 @@
  */
 package com.minhaempresa.lojademoveis.crudsenac.views;
 
+import com.minhaempresa.lojademoveis.crudsenac.dao.ClientesDAO;
+import com.minhaempresa.lojademoveis.crudsenac.dao.EnderecoDAO;
+import com.minhaempresa.lojademoveis.crudsenac.models.Cliente;
+import com.minhaempresa.lojademoveis.crudsenac.models.Endereco;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author henri
  */
-public class TelaCadastroEndereço extends javax.swing.JFrame {
-
+public class TelaCadastroEndereco extends javax.swing.JFrame {
+    
     /**
      * Creates new form TelaCadastroEndereço
      */
-    public TelaCadastroEndereço() {
+    public TelaCadastroEndereco() {
         initComponents();
     }
 
@@ -84,8 +90,8 @@ public class TelaCadastroEndereço extends javax.swing.JFrame {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNumCasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNumCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGap(25, 25, 25)
                             .addComponent(jLabel3)
@@ -166,6 +172,26 @@ public class TelaCadastroEndereço extends javax.swing.JFrame {
         TelaInicial tela = new TelaInicial();
         tela.setVisible(true);
         
+        
+        
+        String logradouro = txtLogradouro.getText();
+        Integer numero = Integer.parseInt(txtNumCasa.getText());
+        String cidade = txtCidade.getText();
+        String bairro = txtBairro.getText();
+        String complemento = txtComplemento.getText();
+       
+        boolean retorno;
+        
+        Endereco infosEndereco = new Endereco(logradouro, numero, cidade, bairro, complemento);
+        
+        retorno = EnderecoDAO.salvar(infosEndereco);
+        
+        if(retorno == true){
+            JOptionPane.showMessageDialog(rootPane, "Sucesso ");
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Falha ");
+        }
+        
         dispose();
     }//GEN-LAST:event_btnConfirmarEndereçoActionPerformed
 
@@ -186,20 +212,21 @@ public class TelaCadastroEndereço extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroEndereço.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroEndereco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroEndereço.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroEndereco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroEndereço.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroEndereco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroEndereço.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroEndereco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCadastroEndereço().setVisible(true);
+                new TelaCadastroEndereco().setVisible(true);
             }
         });
     }

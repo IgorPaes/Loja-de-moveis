@@ -6,6 +6,9 @@ package com.minhaempresa.lojademoveis.crudsenac.views;
 
 import com.minhaempresa.lojademoveis.crudsenac.dao.ClientesDAO;
 import com.minhaempresa.lojademoveis.crudsenac.models.Cliente;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -817,7 +820,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void btnCadastrarEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarEndActionPerformed
         
-        TelaCadastroEndereço tela = new TelaCadastroEndereço();
+        TelaCadastroEndereco tela = new TelaCadastroEndereco();
         tela.setVisible(true);
         
         dispose();
@@ -834,24 +837,23 @@ public class TelaInicial extends javax.swing.JFrame {
         String estadoCivil = comboEstadoCivil.getSelectedItem().toString();
         String data = txtData.getText();
         boolean retorno;
-        
         char sexo = ' ';
         if(posicaoSexo == 1) {
-            sexo = 'M'; 
+            sexo = 'M';
         }else if(posicaoSexo == 2) {
-            sexo = 'F'; 
+            sexo = 'F';
         }
-        
         Cliente infos = new Cliente(nome, cpf, telefone, email, sexo, estadoCivil, data);
+        retorno = ClientesDAO.salvar(infos);
+    
         
-         retorno = ClientesDAO.salvar(infos);
+        if(retorno == true){
+            JOptionPane.showMessageDialog(rootPane, "Sucesso ");
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Falha!");
+        }
 
-            if(retorno == true){
-                JOptionPane.showMessageDialog(rootPane, "Sucesso - Nota gerada: " + infos.getIdCliente());
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Falha!");
-            }
-        
+ 
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     /**

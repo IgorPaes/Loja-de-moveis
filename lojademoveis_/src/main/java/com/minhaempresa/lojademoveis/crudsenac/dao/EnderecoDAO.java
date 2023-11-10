@@ -6,56 +6,47 @@ package com.minhaempresa.lojademoveis.crudsenac.dao;
 
 import com.minhaempresa.lojademoveis.crudsenac.db.Conexao;
 import com.minhaempresa.lojademoveis.crudsenac.models.Cliente;
+import com.minhaempresa.lojademoveis.crudsenac.models.Endereco;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author henrique.smenezes1
+ * @author Lucas Andrade
  */
-public class ClientesDAO {
+public class EnderecoDAO {
     
-    public static Connection conn = null;
+      public static Connection conn = null;
     
-    public static boolean salvar(Cliente obj) {
+    public static boolean salvar(Endereco obj) {
     
         boolean retorno = false;
         try {
             conn = Conexao.abrirConexao();
             
-            PreparedStatement comandoSQL = conn.prepareStatement("INSERT INTO clientes (NOME, CPF, TELEFONE, EMAIL, SEXO, ESTADO_CIVIL, DATA_NASCIMENTO) VALUES(?,?,?,?,?,?,?)"
+            PreparedStatement comandoSQL = conn.prepareStatement("INSERT INTO endereco (logradouro, numero, cidade, bairro, complemento, id_clientes) VALUES(?,?,?,?,?,?)"
                                                 , PreparedStatement.RETURN_GENERATED_KEYS );
             //comandoSQL.setInt(1, obj.g);
             
-            comandoSQL.setString(1, obj.getNome());
-            comandoSQL.setString(2, obj.cpfFormatada());
-            comandoSQL.setString(3, obj.telefoneFormatada());
-            comandoSQL.setString(4, obj.getEmail());
-            comandoSQL.setString(5, String.valueOf(obj.getSexo()));
-            comandoSQL.setString(6, obj.getEstadoCivil());
-            comandoSQL.setString(7, "2025/08/20");
+            comandoSQL.setString(1, obj.getLogradouro());
+            comandoSQL.setInt(2, obj.getNumero());
+            comandoSQL.setString(3, obj.getCidade());
+            comandoSQL.setString(4, obj.getBairro());
+            comandoSQL.setString(5, obj.getComplemento());
+            
+             // Verifica se o cliente foi configurado no endereço
+            if (obj.getCliente() != null) {
+                comandoSQL.setInt(6, obj.getCliente().getIdCliente());
+            } else {
+                throw new SQLException("Cliente não configurado para o endereço.");
+            }
             
             //Passo 4 - Executar o comando 
             comandoSQL.executeUpdate();
-            
-            // Obtém o ID gerado para o cliente
-            int idCliente;
-            try (ResultSet generatedKeys = comandoSQL.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    idCliente = generatedKeys.getInt(1);
-                } else {
-                    throw new SQLException("Falha ao obter o ID do cliente.");
-                }
-            }
-
-            // Configura o ID do cliente no objeto
-            obj.setIdCliente(idCliente);
-            
-            
             
             retorno = true;
             
@@ -70,6 +61,5 @@ public class ClientesDAO {
         
         
     }
-    
     
 }

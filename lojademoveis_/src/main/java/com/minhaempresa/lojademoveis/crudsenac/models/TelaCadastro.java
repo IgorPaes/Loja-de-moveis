@@ -10,4 +10,6 @@ package com.minhaempresa.lojademoveis.crudsenac.models;
  */
 public class TelaCadastro {
     
+    
+    
 }
