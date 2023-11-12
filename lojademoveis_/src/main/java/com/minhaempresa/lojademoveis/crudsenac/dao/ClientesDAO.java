@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,11 +52,8 @@ public class ClientesDAO {
                     throw new SQLException("Falha ao obter o ID do cliente.");
                 }
             }
-
             // Configura o ID do cliente no objeto
             obj.setIdCliente(idCliente);
-            
-            
             
             return obj;
             
@@ -67,9 +65,62 @@ public class ClientesDAO {
         }
         
         return null;
-        
-        
     }
     
-    
+    public static ArrayList<Cliente> listar() throws SQLException{
+        ArrayList<Cliente> lista = new ArrayList<>();
+        Connection conexao = null;
+        PreparedStatement comandoSQL = null;
+        ResultSet rs = null;
+        
+        try {
+
+            //busca a tabela no banco
+            conexao = Conexao.abrirConexao();
+            comandoSQL = conexao.prepareStatement("SELECT * FROM clientes");
+            
+            //Executar a CONSULTA
+             rs = comandoSQL.executeQuery();
+             
+              if (rs != null) {
+
+            //Pega as informaçoes da tabela;      
+                while (rs.next()) {
+                    
+                    String nome = rs.getString("NOME");
+                    String cpf = rs.getString("CPF");
+                    String telefone = rs.getString("TELEFONE");
+                    String email = rs.getString("EMAIL");
+                    String sexo = rs.getString("SEXO");
+                    String estadoCivil = rs.getString("ESTADO_CIVIL");
+                    String dataNascimento = rs.getString("DATA_NASCIMENTO");
+                    
+                    //Converte a variavel de string para char
+                    char sexoChar = (!sexo.isEmpty()) ? sexo.charAt(0) : '\0';
+
+                    //Passa as informaçoes para o obj cliente
+                    Cliente cliente = new Cliente( nome, cpf, telefone, email, sexoChar, estadoCivil, dataNascimento);
+
+                    //Add na lista
+                    lista.add(cliente);
+
+                }
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("erro para listar -> " + e.getMessage());
+            lista = null;
+        } finally {
+
+            if (conexao != null) {
+                Conexao.fecharConexao();
+            }
+
+        }
+
+        return lista;
+    }//Fim do método listar
+
+
 }

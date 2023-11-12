@@ -11,7 +11,6 @@ import java.util.Date;
 
 public class Cliente {
     
-    
     private int idCliente;
     private String nome;
     private String cpf;
@@ -29,8 +28,9 @@ public class Cliente {
     public Cliente(int idCliente){
         this.idCliente = idCliente;
     }
-
-    public Cliente(String nome, String cpf, String telefone, String email, char sexo, String estadoCivil, String data) {
+    
+    public Cliente(Integer idCliente, String nome, String cpf, String telefone, String email, char sexo, String estadoCivil, String data) {
+        this.idCliente = idCliente;
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -40,7 +40,20 @@ public class Cliente {
         this.data = data;
     }
     
-    public Cliente(String nome, String cpf, String telefone, String email, char sexo, String estadoCivil, String data, Endereco endereco) {
+
+    public Cliente( String nome, String cpf, String telefone, String email, char sexo, String estadoCivil, String data) {
+        
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.email = email;
+        this.sexo = sexo;
+        this.estadoCivil = estadoCivil;
+        this.data = data;
+    }
+    
+    public Cliente(int idCliente, String nome, String cpf, String telefone, String email, char sexo, String estadoCivil, String data, Endereco endereco) {
+       this.idCliente = idCliente;
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;

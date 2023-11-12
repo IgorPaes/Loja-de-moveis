@@ -10,6 +10,7 @@ package com.minhaempresa.lojademoveis.crudsenac.models;
  */
 public class Endereco {
     
+    private String cep;
     private String logradouro;
     private int numero;
     private String cidade;
@@ -20,9 +21,8 @@ public class Endereco {
     public Endereco() {
     }
     
-    
-    
-    public Endereco(String logradouro, int numero, String cidade, String bairro, String complemento ){
+    public Endereco(String cep, String logradouro, int numero, String cidade, String bairro, String complemento ){
+        this.cep = cep;
         this.logradouro = logradouro;
         this.numero = numero;
         this.cidade = cidade;
@@ -69,5 +69,20 @@ public class Endereco {
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+    
+      public  String removerCaracteresEspeciaisCep(){
+       String texto = this.cep.replace("-", "");
+       
+       return texto;
+       
+   }
     
 }

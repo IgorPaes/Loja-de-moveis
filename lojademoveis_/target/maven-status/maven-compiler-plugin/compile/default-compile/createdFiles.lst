@@ -2,6 +2,7 @@ com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin$3.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$4.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaCadastroEndereco$1.class
 com\minhaempresa\lojademoveis\crudsenac\models\TelaCadastro.class
+com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$12.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$2.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin$5.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$7.class
@@ -19,10 +20,13 @@ com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin$4.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin$2.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaRelatório$1.class
 com\minhaempresa\lojademoveis\crudsenac\models\Lojademoveis.class
+com\minhaempresa\lojademoveis\crudsenac\service\ConsultaCepException.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$11.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaRelatório.class
 com\minhaempresa\lojademoveis\crudsenac\db\Conexao.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaCadastroEndereco.class
+com\minhaempresa\lojademoveis\crudsenac\service\CepService.class
+com\minhaempresa\lojademoveis\crudsenac\service\EnderecoCliente.class
 com\minhaempresa\lojademoveis\crudsenac\models\Cliente.class
 com\minhaempresa\lojademoveis\crudsenac\models\Endereco.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin.class
@@ -32,4 +36,5 @@ com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$6.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$10.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaCadastroEndereco$2.class
+com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$13.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$9.class
