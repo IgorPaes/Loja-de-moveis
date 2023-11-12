@@ -22,6 +22,10 @@ public class Cliente {
     private String data;
     private Endereco endereco;
     
+    public Cliente(){
+        
+    }
+    
     public Cliente(int idCliente){
         this.idCliente = idCliente;
     }
@@ -122,30 +126,27 @@ public class Cliente {
     }
     
       public String cpfFormatada(){
-        this.cpf = this.cpf;
-        
-        String cpfLimpo = cpf.replaceAll("[^0-9]", "");
+        String cpfLimpo = this.cpf.replaceAll("[^0-9]", "");
       
         return cpfLimpo;
     }
     
     public String telefoneFormatada(){
-        this.telefone = this.telefone;
-        
-        String telefoneLimpo = telefone.replaceAll("[^0-9]", "");
+    
+        String telefoneLimpo = this.telefone.replaceAll("[^0-9]", "");
       
         return telefoneLimpo;
     }
     
       public String dataFormatada() throws ParseException{
-          this.data = this.data;
           
-             SimpleDateFormat sdfEntrada = new SimpleDateFormat("dd/MM/yyyy");
-              Date data = sdfEntrada.parse(this.data);
-            
-              SimpleDateFormat sdfSaida = new SimpleDateFormat("MM/dd/yyyy");
-            String dataAnericana = sdfSaida.format(data);
-        return dataAnericana;
+          SimpleDateFormat sdfAtual = new SimpleDateFormat("dd/MM/yyyy");
+          Date dataAtual = sdfAtual.parse(this.data);
+          
+          
+            SimpleDateFormat sdfSaida = new SimpleDateFormat("yyyy-MM-dd");
+            String dataAmericana = sdfSaida.format(dataAtual);
+            return dataAmericana;
     }
     
 }

@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,9 +22,8 @@ public class ClientesDAO {
     
     public static Connection conn = null;
     
-    public static boolean salvar(Cliente obj) {
+    public static Cliente salvar(Cliente obj) throws ParseException {
     
-        boolean retorno = false;
         try {
             conn = Conexao.abrirConexao();
             
@@ -37,7 +37,7 @@ public class ClientesDAO {
             comandoSQL.setString(4, obj.getEmail());
             comandoSQL.setString(5, String.valueOf(obj.getSexo()));
             comandoSQL.setString(6, obj.getEstadoCivil());
-            comandoSQL.setString(7, "2025/08/20");
+            comandoSQL.setString(7, obj.dataFormatada());
             
             //Passo 4 - Executar o comando 
             comandoSQL.executeUpdate();
@@ -57,7 +57,7 @@ public class ClientesDAO {
             
             
             
-            retorno = true;
+            return obj;
             
             
         } catch (ClassNotFoundException ex) {
@@ -66,7 +66,7 @@ public class ClientesDAO {
             Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return retorno;
+        return null;
         
         
     }

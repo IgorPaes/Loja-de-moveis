@@ -19,6 +19,7 @@ com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin$4.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin$2.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaRelatório$1.class
 com\minhaempresa\lojademoveis\crudsenac\models\Lojademoveis.class
+com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$11.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaRelatório.class
 com\minhaempresa\lojademoveis\crudsenac\db\Conexao.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaCadastroEndereco.class

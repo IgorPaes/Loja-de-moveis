@@ -17,11 +17,15 @@ import javax.swing.JOptionPane;
  */
 public class TelaInicial extends javax.swing.JFrame {
 
+    private Integer idCliente;
+    
     /**
      * Creates new form TelaInicial
      */
     public TelaInicial() {
+        this.idCliente = 0;
         initComponents();
+        
     }
 
     /**
@@ -631,6 +635,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         jButton4.setText("Alterar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Excluir");
 
@@ -815,20 +824,25 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
 
     private void mnuAbreRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAbreRelatorioActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_mnuAbreRelatorioActionPerformed
 
     private void btnCadastrarEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarEndActionPerformed
         
-        TelaCadastroEndereco tela = new TelaCadastroEndereco();
+        if(idCliente > 0 ){
+            
+        TelaCadastroEndereco tela = new TelaCadastroEndereco(idCliente);
         tela.setVisible(true);
         
+        }else {
+             JOptionPane.showMessageDialog(rootPane, "Erro: é necessario cadastrar o cliente");
+        }
         dispose();
         
     }//GEN-LAST:event_btnCadastrarEndActionPerformed
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
-        
+
         String nome = txtNome.getText();
         String cpf = txtCpf.getText();
         String telefone = txtTelefone.getText();
@@ -836,18 +850,23 @@ public class TelaInicial extends javax.swing.JFrame {
         int posicaoSexo = comboSexo.getSelectedIndex();
         String estadoCivil = comboEstadoCivil.getSelectedItem().toString();
         String data = txtData.getText();
-        boolean retorno;
+        
         char sexo = ' ';
         if(posicaoSexo == 1) {
             sexo = 'M';
         }else if(posicaoSexo == 2) {
             sexo = 'F';
         }
-        Cliente infos = new Cliente(nome, cpf, telefone, email, sexo, estadoCivil, data);
-        retorno = ClientesDAO.salvar(infos);
+        Cliente cliente = new Cliente(nome, cpf, telefone, email, sexo, estadoCivil, data);
+        try {
+            cliente = ClientesDAO.salvar(cliente);
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
         
-        if(retorno == true){
+        if(cliente != null && cliente.getIdCliente() > 0){
+            idCliente = cliente.getIdCliente();
             JOptionPane.showMessageDialog(rootPane, "Sucesso ");
         }else{
             JOptionPane.showMessageDialog(rootPane, "Falha!");
@@ -855,6 +874,10 @@ public class TelaInicial extends javax.swing.JFrame {
 
  
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

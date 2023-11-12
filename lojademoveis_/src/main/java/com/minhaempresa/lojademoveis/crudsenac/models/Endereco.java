@@ -15,7 +15,12 @@ public class Endereco {
     private String cidade;
     private String bairro;
     private String complemento;
-    private Cliente cliente;
+   
+
+    public Endereco() {
+    }
+    
+    
     
     public Endereco(String logradouro, int numero, String cidade, String bairro, String complemento ){
         this.logradouro = logradouro;
@@ -25,16 +30,6 @@ public class Endereco {
         this.complemento = complemento;
     }
     
-      public Endereco(String logradouro, int numero, String cidade, String bairro, String complemento, Cliente cliente ){
-        this.logradouro = logradouro;
-        this.numero = numero;
-        this.cidade = cidade;
-        this.bairro = bairro;
-        this.complemento = complemento;
-        this.cliente = cliente;
-    }
-
-
     public String getLogradouro() {
         return logradouro;
     }
@@ -73,14 +68,6 @@ public class Endereco {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
     
 }

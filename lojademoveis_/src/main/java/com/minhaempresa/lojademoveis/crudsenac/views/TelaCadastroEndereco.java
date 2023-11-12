@@ -4,9 +4,7 @@
  */
 package com.minhaempresa.lojademoveis.crudsenac.views;
 
-import com.minhaempresa.lojademoveis.crudsenac.dao.ClientesDAO;
 import com.minhaempresa.lojademoveis.crudsenac.dao.EnderecoDAO;
-import com.minhaempresa.lojademoveis.crudsenac.models.Cliente;
 import com.minhaempresa.lojademoveis.crudsenac.models.Endereco;
 import javax.swing.JOptionPane;
 
@@ -16,11 +14,17 @@ import javax.swing.JOptionPane;
  */
 public class TelaCadastroEndereco extends javax.swing.JFrame {
     
+    private Integer idCliente;
     /**
      * Creates new form TelaCadastroEndereço
      */
     public TelaCadastroEndereco() {
         initComponents();
+    }
+    
+     public TelaCadastroEndereco(Integer idCliente) { 
+         this.idCliente = idCliente;
+         initComponents();
     }
 
     /**
@@ -169,28 +173,27 @@ public class TelaCadastroEndereco extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLogradouroActionPerformed
 
     private void btnConfirmarEndereçoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEndereçoActionPerformed
-        TelaInicial tela = new TelaInicial();
-        tela.setVisible(true);
-        
-        
-        
+       
         String logradouro = txtLogradouro.getText();
         Integer numero = Integer.parseInt(txtNumCasa.getText());
         String cidade = txtCidade.getText();
         String bairro = txtBairro.getText();
         String complemento = txtComplemento.getText();
-       
+        
         boolean retorno;
         
         Endereco infosEndereco = new Endereco(logradouro, numero, cidade, bairro, complemento);
         
-        retorno = EnderecoDAO.salvar(infosEndereco);
+        retorno = EnderecoDAO.salvar(infosEndereco, idCliente);
         
         if(retorno == true){
             JOptionPane.showMessageDialog(rootPane, "Sucesso ");
         }else{
             JOptionPane.showMessageDialog(rootPane, "Falha ");
         }
+        
+        TelaInicial tela = new TelaInicial();
+        tela.setVisible(true);
         
         dispose();
     }//GEN-LAST:event_btnConfirmarEndereçoActionPerformed

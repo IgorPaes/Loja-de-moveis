@@ -22,7 +22,7 @@ public class EnderecoDAO {
     
       public static Connection conn = null;
     
-    public static boolean salvar(Endereco obj) {
+    public static boolean salvar(Endereco obj, Integer idCliente) {
     
         boolean retorno = false;
         try {
@@ -37,13 +37,9 @@ public class EnderecoDAO {
             comandoSQL.setString(3, obj.getCidade());
             comandoSQL.setString(4, obj.getBairro());
             comandoSQL.setString(5, obj.getComplemento());
+            comandoSQL.setInt(6, idCliente);
             
-             // Verifica se o cliente foi configurado no endereço
-            if (obj.getCliente() != null) {
-                comandoSQL.setInt(6, obj.getCliente().getIdCliente());
-            } else {
-                throw new SQLException("Cliente não configurado para o endereço.");
-            }
+       
             
             //Passo 4 - Executar o comando 
             comandoSQL.executeUpdate();
