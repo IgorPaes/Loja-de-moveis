@@ -950,7 +950,7 @@
                                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                                       <Component id="btnAlterarCliente" min="-2" pref="110" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                                      <Component id="jButton5" min="-2" pref="110" max="-2" attributes="0"/>
+                                      <Component id="btnExcluirCliente" min="-2" pref="110" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -1018,7 +1018,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton5" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
+                                          <Component id="btnExcluirCliente" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
                                           <Component id="btnAlterarCliente" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                                           <Component id="btnConsultarCliente" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
                                       </Group>
@@ -1248,10 +1248,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAlterarClienteActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton5">
+            <Component class="javax.swing.JButton" name="btnExcluirCliente">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Excluir"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirClienteActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnConsultarCliente">
               <Properties>

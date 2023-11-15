@@ -161,5 +161,67 @@ public class ClientesDAO {
 
         return retorno;
     }
+     
+    public static boolean excluirClienteComEndereco(int idClienteExcluir) {
+
+        boolean retorno = false;
+        Connection conexao = null;
+        PreparedStatement comandoSQLCliente = null;
+        PreparedStatement comandoSQLEndereco = null;
+
+        try {
+            conexao = Conexao.abrirConexao();
+
+            // os commits não são mais automaticos ele precisa ser chamado manualmente
+            conexao.setAutoCommit(false);
+
+            // Passo 1 - Preparar o comando SQL para excluir endereço relacionado ao Id_cliente
+            comandoSQLEndereco = conexao.prepareStatement("DELETE FROM endereco WHERE id_clientes = ?");
+            comandoSQLEndereco.setInt(1, idClienteExcluir);
+
+            // Passo 2 - Executar o comando para excluir endereço
+            int linhasAfetadasEndereco = comandoSQLEndereco.executeUpdate();
+
+            // Passo 3 - Preparar o comando SQL para excluir id do cliente na tabela cliente
+            comandoSQLCliente = conexao.prepareStatement("DELETE FROM clientes WHERE ID_CLIENTE = ?");
+            comandoSQLCliente.setInt(1, idClienteExcluir);
+
+            // Passo 4 - Executar o comando para excluir cliente
+            int linhasAfetadasCliente = comandoSQLCliente.executeUpdate();
+
+            // Commit da transação se ambas as operações foram bem-sucedidas - chama manualmente
+            if (linhasAfetadasCliente > 0 && linhasAfetadasEndereco > 0) {
+                conexao.commit();
+                retorno = true;
+            } else {
+                // Rollback se algo deu errado
+                conexao.rollback();
+            }
+
+        } catch (Exception e) {
+            // Tratar exceção
+            System.out.println("Erro para excluir cliente com endereço -> " + e.getMessage());
+            try {
+                // Rollback em caso de exceção é acionado para desfazer as mudanças feitas.
+                if (conexao != null) {
+                    conexao.rollback();
+                }
+            } catch (SQLException e1) {
+                System.out.println("Erro ao realizar rollback -> " + e1.getMessage());
+            }
+            return false;
+        } finally {
+            try {
+                // Restaurar o comportamento padrão de commit automático
+                if (conexao != null) {
+                    conexao.setAutoCommit(true);
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro ao restaurar auto commit -> " + e.getMessage());
+            }
+        }
+
+        return retorno;
+    }
 
 }

@@ -115,7 +115,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
         btnAlterarCliente = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnExcluirCliente = new javax.swing.JButton();
         btnConsultarCliente = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JSeparator();
         txtCpf = new javax.swing.JFormattedTextField();
@@ -641,7 +641,12 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Excluir");
+        btnExcluirCliente.setText("Excluir");
+        btnExcluirCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirClienteActionPerformed(evt);
+            }
+        });
 
         btnConsultarCliente.setText("Consultar");
         btnConsultarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -706,7 +711,7 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addGap(32, 32, 32)
                                 .addComponent(btnAlterarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(76, 76, 76)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnExcluirCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)))
                 .addGap(1094, 1094, 1094))
@@ -759,7 +764,7 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(23, 23, 23)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnExcluirCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnAlterarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnConsultarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
@@ -881,6 +886,9 @@ public class TelaInicial extends javax.swing.JFrame {
                 cliente.setIdCliente(idCliente);
                 if (ClientesDAO.alterar(idCliente, cliente)) {
                     JOptionPane.showMessageDialog(rootPane, "Alterações salvas com sucesso");
+                       TelaInicial nova = new TelaInicial();
+                       nova.setVisible(true);
+                
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Falha ao salvar as alterações");
                 }
@@ -891,7 +899,9 @@ public class TelaInicial extends javax.swing.JFrame {
 
         // Atualizar a tabela
         try {
+            limparCampos();
             atualizarTabela();
+           
         } catch (SQLException ex) {
             Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -933,6 +943,7 @@ public class TelaInicial extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Nenhum cliente selecionado");
         }
+        
 
     }//GEN-LAST:event_btnAlterarClienteActionPerformed
 
@@ -967,8 +978,37 @@ public class TelaInicial extends javax.swing.JFrame {
             });
 
         }
+        limparCampos();
 
     }//GEN-LAST:event_btnConsultarClienteActionPerformed
+
+    private void btnExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirClienteActionPerformed
+          //1º Passo = Resgatar a linha e mandar para um objeto
+        int linhaSelecionada = tblClientes.getSelectedRow();
+
+        //2º acessar a camada Model da tabela
+        DefaultTableModel modelo = (DefaultTableModel) tblClientes.getModel();
+
+        //3º resgatar valores da linha selecionada
+        int idSelecionado = Integer.parseInt(
+                            modelo.getValueAt(linhaSelecionada, 0).toString());
+
+        //4º Passo - Mandar o ID para a DAO excluir
+        boolean retorno = ClientesDAO.excluirClienteComEndereco(idSelecionado);
+
+        if(retorno){
+            JOptionPane.showMessageDialog(rootPane, "Sucesso!");
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Falha!");
+        }
+
+        try {
+            //Método para atualizar a tabela
+            atualizarTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnExcluirClienteActionPerformed
     public void atualizarTabela() throws SQLException {
 
         //Chamar a DAO para consultar informaçoes do banco
@@ -996,9 +1036,18 @@ public class TelaInicial extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Não foi encontrado nenhum registro");
         }
 
+    };
+    
+    public void limparCampos(){
+        txtNome.setText("");
+        txtCpf.setText("");
+        txtTelefone.setText("");
+        txtEmail.setText("");
+        comboSexo.removeAll();
+        comboEstadoCivil.removeAll();
+        txtData.setText("");
+       
     }
-
-    ;
 
      
     /**
@@ -1042,6 +1091,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrarEnd;
     private javax.swing.JButton btnCadastrarProduto;
     private javax.swing.JButton btnConsultarCliente;
+    private javax.swing.JButton btnExcluirCliente;
     private javax.swing.JComboBox<String> comboEstadoCivil;
     private javax.swing.JComboBox<String> comboSexo;
     private javax.swing.JButton jButton1;
@@ -1049,7 +1099,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton9;
