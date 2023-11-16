@@ -118,9 +118,9 @@ public class TelaInicial extends javax.swing.JFrame {
         txtQuantidade = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
         jSeparator8 = new javax.swing.JSeparator();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        btnAlterarProduto = new javax.swing.JButton();
+        btnExclurProduto = new javax.swing.JButton();
+        btnConsultarProduto = new javax.swing.JButton();
         jSeparator9 = new javax.swing.JSeparator();
         txtPreco = new javax.swing.JFormattedTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -637,7 +637,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Nome", "Preço", "Categoria", "Marca", "Estoque"
+                "Código", "Nome", "Marca", "Preco", "Categoria", "Quantidade"
             }
         ));
         jScrollPane3.setViewportView(tblProdutos);
@@ -657,11 +657,16 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jButton9.setText("Alterar");
+        btnAlterarProduto.setText("Alterar");
 
-        jButton10.setText("Excluir");
+        btnExclurProduto.setText("Excluir");
 
-        jButton11.setText("Consultar");
+        btnConsultarProduto.setText("Consultar");
+        btnConsultarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarProdutoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -717,12 +722,12 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnConsultarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAlterarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExclurProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
@@ -739,9 +744,9 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAlterarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnExclurProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnConsultarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -1047,6 +1052,41 @@ public class TelaInicial extends javax.swing.JFrame {
     private void txtNomeMovelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeMovelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeMovelActionPerformed
+
+    private void btnConsultarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarProdutoActionPerformed
+       
+        try {
+            atualizarTabelaProduto();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        ArrayList<Produto> produto = null;
+       
+       try {
+         produto =  ProdutosDAO.listar();
+       }catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+       //pega a tabela
+       DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+      // pega a linha
+       modelo.setRowCount(0);
+       
+       for(Produto produtos : produto){
+         modelo.addRow(new String[]{
+             String.valueOf(produtos.getCodProduto()),
+             String.valueOf(produtos.getNome()),
+             String.valueOf(produtos.getMarca()),
+             String.valueOf(produtos.getPreco()),
+             String.valueOf(produtos.getCategoria()),
+             String.valueOf(produtos.getQuantidade()),
+         });  
+       }
+    }//GEN-LAST:event_btnConsultarProdutoActionPerformed
     public void atualizarTabela() throws SQLException {
 
         //Chamar a DAO para consultar informaçoes do banco
@@ -1067,13 +1107,36 @@ public class TelaInicial extends javax.swing.JFrame {
                     String.valueOf(clientes.getSexo()),
                     String.valueOf(clientes.getData()),
                     String.valueOf(clientes.getData()),});
-
             }
 
         } else {
             JOptionPane.showMessageDialog(this, "Não foi encontrado nenhum registro");
         }
+    };
+     public void atualizarTabelaProduto() throws SQLException, ClassNotFoundException {
 
+        //Chamar a DAO para consultar informaçoes do banco
+        ArrayList<Produto> listaRetorno = ProdutosDAO.listar();
+
+        //Para cada cliente na lista, vou adicionar à tabela
+        if (listaRetorno != null) {
+            DefaultTableModel modelo = (DefaultTableModel) tblClientes.getModel();
+            modelo.setRowCount(0);
+
+            for (Produto produtos : listaRetorno) {
+                modelo.addRow(new String[]{
+                String.valueOf(produtos.getCodProduto()),
+                String.valueOf(produtos.getNome()),
+                String.valueOf(produtos.getMarca()),
+                String.valueOf(produtos.getPreco()),
+                String.valueOf(produtos.getCategoria()),
+                String.valueOf(produtos.getQuantidade()),
+                });
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Não foi encontrado nenhum registro");
+        }
     };
     
     public void limparCampos(){
@@ -1125,22 +1188,22 @@ public class TelaInicial extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarCliente;
+    private javax.swing.JButton btnAlterarProduto;
     private javax.swing.JButton btnCadastrarCliente;
     private javax.swing.JButton btnCadastrarEnd;
     private javax.swing.JButton btnCadastrarProduto;
     private javax.swing.JButton btnConsultarCliente;
+    private javax.swing.JButton btnConsultarProduto;
     private javax.swing.JButton btnExcluirCliente;
+    private javax.swing.JButton btnExclurProduto;
     private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JComboBox<String> comboEstadoCivil;
     private javax.swing.JComboBox<String> comboSexo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JFormattedTextField jFormattedTextField3;
     private javax.swing.JLabel jLabel1;

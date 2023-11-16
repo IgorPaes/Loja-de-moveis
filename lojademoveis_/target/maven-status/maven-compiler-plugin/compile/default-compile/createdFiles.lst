@@ -28,6 +28,7 @@ com\minhaempresa\lojademoveis\crudsenac\views\TelaRelatório.class
 com\minhaempresa\lojademoveis\crudsenac\db\Conexao.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaCadastroEndereco.class
 com\minhaempresa\lojademoveis\crudsenac\service\CepService.class
+com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$15.class
 com\minhaempresa\lojademoveis\crudsenac\service\EnderecoCliente.class
 com\minhaempresa\lojademoveis\crudsenac\models\Cliente.class
 com\minhaempresa\lojademoveis\crudsenac\models\Endereco.class

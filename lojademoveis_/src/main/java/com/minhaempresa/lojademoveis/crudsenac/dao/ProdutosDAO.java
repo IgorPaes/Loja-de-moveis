@@ -8,7 +8,9 @@ import com.minhaempresa.lojademoveis.crudsenac.db.Conexao;
 import com.minhaempresa.lojademoveis.crudsenac.models.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,5 +51,68 @@ public class ProdutosDAO {
 
         return retorno;
     }
+    
+    public static ArrayList<Produto> listar() throws ClassNotFoundException, SQLException {
+        ArrayList<Produto> lista = new ArrayList<>();
+         conn = null;
+         PreparedStatement comandoSQL = null;
+         ResultSet rs = null;
+         
+         conn = Conexao.abrirConexao();
+         
+         comandoSQL = conn.prepareStatement(" SELECT * FROM produtos",
+                     PreparedStatement.RETURN_GENERATED_KEYS);
+         
+         rs = comandoSQL.executeQuery();
+        try{ 
+         
+         if (rs != null) {
+
+                while (rs.next()) {
+                    int id = rs.getInt("CODIGO_PRODUTO");
+                    String nome = rs.getString("NOME");
+                    String marca = rs.getString("MARCA");
+                    double preco = rs.getDouble("PRECO");
+                    String categoria = rs.getString("CATEGORIA");
+                    int quantidade = rs.getInt("Quantidade");
+                    String descProduto = rs.getString("DESCRICAO_PRODUTO");
+
+                    Produto produtos = new Produto(id, nome, marca, preco, categoria, quantidade, descProduto);
+
+                    lista.add(produtos);
+
+                }
+
+            }
+        }
+             catch (Exception e) {
+            System.out.println("erro para listar -> " + e.getMessage());
+            lista = null;
+        } finally {
+
+            if (conn != null) {
+               Conexao.fecharConexao();
+            }
+
+        }
+
+        return lista;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
