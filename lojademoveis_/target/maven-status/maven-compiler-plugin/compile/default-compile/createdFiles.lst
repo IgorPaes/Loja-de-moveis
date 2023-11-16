@@ -34,6 +34,7 @@ com\minhaempresa\lojademoveis\crudsenac\models\Cliente.class
 com\minhaempresa\lojademoveis\crudsenac\models\Endereco.class
 com\minhaempresa\lojademoveis\crudsenac\models\Produto.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin.class
+com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$16.class
 com\minhaempresa\lojademoveis\crudsenac\dao\ClientesDAO.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$1.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$6.class

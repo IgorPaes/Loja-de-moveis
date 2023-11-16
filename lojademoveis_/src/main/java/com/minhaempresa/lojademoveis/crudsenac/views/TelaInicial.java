@@ -658,6 +658,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         btnAlterarProduto.setText("Alterar");
+        btnAlterarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarProdutoActionPerformed(evt);
+            }
+        });
 
         btnExclurProduto.setText("Excluir");
 
@@ -843,33 +848,48 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void btnCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutoActionPerformed
        
-        boolean retorno;
-            String nome = txtNomeMovel.getText();
-            String marca = txtMarca.getText();
-            double preco = Double.parseDouble(txtPreco.getText());
-            String categoria = comboCategoria.getSelectedItem().toString();
-            int quantidade = Integer.parseInt(txtQuantidade.getText());
-            String descProduto = txtDescProduto.getText();
+        String nome = txtNomeMovel.getText();
+        String marca = txtMarca.getText();
+        double preco = Double.parseDouble(txtPreco.getText());
+        String categoria = comboCategoria.getSelectedItem().toString();
+        int quantidade = Integer.parseInt(txtQuantidade.getText());
+        String descProduto = txtDescProduto.getText();
 
-            Produto produtos = new Produto(nome, marca, preco, categoria, quantidade, descProduto);
-        if(codProduto == 0){
-            
+        Produto produtos = new Produto(nome, marca, preco, categoria, quantidade, descProduto);
+        if (codProduto == 0) {
             try {
-                retorno = ProdutosDAO.salvar(produtos);
-                JOptionPane.showMessageDialog(rootPane, "Sucesso ao cadastrar o produto");
-                
+                produtos = ProdutosDAO.salvar(produtos);
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
             }
+            if (produtos != null && produtos.getCodProduto() > 0) {
+                codProduto = produtos.getCodProduto();
+                JOptionPane.showMessageDialog(rootPane, "Sucesso ao cadastrar o produto");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao cadastrar o produto");
+            }
 
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao cadastrar o produto");
+            // Atualização do produto existente
+            produtos.setCodProduto(codProduto);
+            try {
+                if (ProdutosDAO.alterarProduto(codProduto, produtos)) {
+                    JOptionPane.showMessageDialog(rootPane, "Alterações salvas com sucesso");
+
+                    // Atualiza a tabela de produtos
+                    atualizarTabelaProduto();
+                    limparCamposProdutos();
+                    
+                    TelaInicial novaTela = new TelaInicial();
+                    novaTela.setVisible(true);
+                   
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Falha ao salvar as alterações");
+                }
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        
-        
-        
-        
-        
         
     }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
 
@@ -1087,6 +1107,42 @@ public class TelaInicial extends javax.swing.JFrame {
          });  
        }
     }//GEN-LAST:event_btnConsultarProdutoActionPerformed
+
+    private void btnAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarProdutoActionPerformed
+      int linhaSelecionada = tblProdutos.getSelectedRow();
+
+        if (linhaSelecionada >= 0) {
+            DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+
+            int id = Integer.parseInt(modelo.getValueAt(linhaSelecionada, 0).toString());
+            String nome = modelo.getValueAt(linhaSelecionada, 1).toString();
+            String marca = modelo.getValueAt(linhaSelecionada, 2).toString();
+            Double preco = Double.parseDouble(modelo.getValueAt(linhaSelecionada, 3).toString());
+            String categoria = modelo.getValueAt(linhaSelecionada, 4).toString();
+            int quantidade = Integer.parseInt(String.valueOf(modelo.getValueAt(linhaSelecionada, 5)));
+
+            if (id >= 0) {
+                Produto alterarProdutos = new Produto(id, nome, marca, preco, categoria, quantidade);
+                this.codProduto = id;
+
+                String precoConvetido = String.valueOf(preco);
+                String qta = String.valueOf(quantidade);
+
+                // Preenche os campos com os dados do produto selecionado
+                txtNomeMovel.setText(nome);
+                txtMarca.setText(marca);
+                txtPreco.setText(precoConvetido);
+                comboCategoria.setSelectedItem(categoria);
+                txtQuantidade.setText(qta);
+                comboCategoria.setSelectedItem(categoria);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Falha ao selecionar o Produto");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Nenhum Produto selecionado");
+        }
+
+    }//GEN-LAST:event_btnAlterarProdutoActionPerformed
     public void atualizarTabela() throws SQLException {
 
         //Chamar a DAO para consultar informaçoes do banco
@@ -1147,6 +1203,16 @@ public class TelaInicial extends javax.swing.JFrame {
         comboSexo.removeAll();
         comboEstadoCivil.removeAll();
         txtData.setText("");
+       
+    }
+        public void limparCamposProdutos(){
+        txtNomeMovel.setText("");
+        txtMarca.setText("");
+        txtPreco.setText("");
+        comboCategoria.removeAll();
+        comboSexo.removeAll();
+        txtQuantidade.setText("");
+        txtDescProduto.setText("");
        
     }
 

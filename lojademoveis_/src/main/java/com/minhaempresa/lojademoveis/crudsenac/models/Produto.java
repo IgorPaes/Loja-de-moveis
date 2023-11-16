@@ -31,6 +31,16 @@ public class Produto {
         
     }
 
+     public Produto(Integer codProduto, String nome, String marca, Double preco, String categoria, Integer quantidade) {
+        this.codProduto = codProduto;
+        this.nome = nome;
+        this.marca = marca;
+        this.preco = preco;
+        this.categoria = categoria;
+        this.quantidade = quantidade;
+        
+    }
+     
     public Produto(String nome, String marca, Double preco, String categoria, Integer quantidade, String descProduto) {
         this.nome = nome;
         this.marca = marca;

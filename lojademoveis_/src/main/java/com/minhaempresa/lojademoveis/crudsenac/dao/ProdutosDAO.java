@@ -22,7 +22,7 @@ public class ProdutosDAO {
   
     public static Connection conn = null;
     
-    public static boolean salvar(Produto produtos) throws ClassNotFoundException, SQLException{
+    public static Produto salvar(Produto produtos) throws ClassNotFoundException, SQLException{
         
         boolean retorno = false;
        
@@ -41,15 +41,27 @@ public class ProdutosDAO {
         
          comandoSQL.executeUpdate();
         
-        retorno = true;
-    }
-       catch (ClassNotFoundException ex) {
+          // Obtém o ID gerado para o cliente
+            int CodProduto;
+            try (ResultSet generatedKeys = comandoSQL.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    CodProduto = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Falha ao obter o ID do cliente.");
+                }
+            }
+            // Configura o ID do cliente no objeto
+            produtos.setCodProduto(CodProduto);
+
+            return produtos;
+
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return retorno;
+        return null;
     }
     
     public static ArrayList<Produto> listar() throws ClassNotFoundException, SQLException {
@@ -99,7 +111,36 @@ public class ProdutosDAO {
         return lista;
     }
     
-    
+    public static boolean alterarProduto(int codProduto, Produto produto) throws ClassNotFoundException, SQLException{
+         conn = null;
+        PreparedStatement comandoSQL = null;
+        boolean retorno = false;
+
+        conn = Conexao.abrirConexao();
+
+        try {
+            comandoSQL = conn.prepareStatement(
+                    "UPDATE produtos SET NOME = ?, MARCA = ?, PRECO = ?, CATEGORIA = ?, QUANTIDADE = ?, DESCRICAO_PRODUTO = ? WHERE CODIGO_PRODUTO = ? ");
+
+            comandoSQL.setString(1, produto.getNome());
+            comandoSQL.setString(2, produto.getMarca());
+            comandoSQL.setDouble(3, produto.getPreco());
+            comandoSQL.setString(4, produto.getCategoria());
+            comandoSQL.setInt(5, produto.getQuantidade());
+            comandoSQL.setString(6, produto.getDescProduto());
+            comandoSQL.setInt(7, codProduto);
+
+            int linhasAfetadas = comandoSQL.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                retorno = true;
+            }
+        }catch (SQLException e) {
+            System.out.println("Erro para alterar registro -> " + e.getMessage());
+            return false;
+        }
+        return retorno;
+    }
     
     
     
