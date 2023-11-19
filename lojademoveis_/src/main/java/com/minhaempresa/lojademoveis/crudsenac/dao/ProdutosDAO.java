@@ -136,12 +136,36 @@ public class ProdutosDAO {
                 retorno = true;
             }
         }catch (SQLException e) {
-            System.out.println("Erro para alterar registro -> " + e.getMessage());
+            System.out.println("Erro para alterar o produto selecionado -> " + e.getMessage());
             return false;
         }
         return retorno;
     }
     
+    public static boolean excluirPruduto(int codProduto) throws ClassNotFoundException, SQLException{
+        conn = null;
+        PreparedStatement comandoSQL = null;
+        boolean retorno = false;
+        
+        conn = Conexao.abrirConexao();
+        
+        try {
+            
+            comandoSQL = conn.prepareStatement( "DELETE FROM produtos WHERE CODIGO_PRODUTO = ? ");
+            comandoSQL.setInt(1, codProduto);
+            
+           int linhasAfetadas = comandoSQL.executeUpdate();
+           
+           if (linhasAfetadas > 0){
+               retorno = true;
+        }
+        }catch (SQLException e) {
+             System.out.println("Erro para apagar o produto -> " + e.getMessage());
+            return false;
+        }
+        
+        return retorno;
+    }
     
     
     

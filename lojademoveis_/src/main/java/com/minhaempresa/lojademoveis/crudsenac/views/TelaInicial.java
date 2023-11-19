@@ -665,6 +665,11 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         btnExclurProduto.setText("Excluir");
+        btnExclurProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExclurProdutoActionPerformed(evt);
+            }
+        });
 
         btnConsultarProduto.setText("Consultar");
         btnConsultarProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -1143,6 +1148,33 @@ public class TelaInicial extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnAlterarProdutoActionPerformed
+
+    private void btnExclurProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExclurProdutoActionPerformed
+        
+        int linhaSelecionada = tblProdutos.getSelectedRow();
+        
+        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+        
+        int idCodProduto = Integer.parseInt(modelo.getValueAt(linhaSelecionada, 0).toString());
+        
+        boolean retorno = false;
+        try {
+            retorno = ProdutosDAO.excluirPruduto(idCodProduto);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         if(retorno){
+            JOptionPane.showMessageDialog(rootPane, "Produto excluido com sucesso!");
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Falha ao excluir o produto!");
+        }
+        try {
+            atualizarTabelaProduto();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnExclurProdutoActionPerformed
     public void atualizarTabela() throws SQLException {
 
         //Chamar a DAO para consultar informaçoes do banco
