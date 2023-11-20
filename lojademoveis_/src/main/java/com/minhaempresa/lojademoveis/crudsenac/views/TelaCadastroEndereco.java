@@ -93,6 +93,11 @@ public class TelaCadastroEndereco extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCepActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -235,6 +240,10 @@ public class TelaCadastroEndereco extends javax.swing.JFrame {
     }
 
     }//GEN-LAST:event_btnConfirmarEndereçoActionPerformed
+
+    private void txtCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCepActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCepActionPerformed
 
     /**
      * @param args the command line arguments

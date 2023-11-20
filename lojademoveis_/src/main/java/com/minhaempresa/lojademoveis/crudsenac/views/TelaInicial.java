@@ -6,7 +6,9 @@ package com.minhaempresa.lojademoveis.crudsenac.views;
 
 import com.minhaempresa.lojademoveis.crudsenac.dao.ClientesDAO;
 import com.minhaempresa.lojademoveis.crudsenac.dao.ProdutosDAO;
+import static com.minhaempresa.lojademoveis.crudsenac.dao.VendasDAO.buscarProdutoPorId;
 import com.minhaempresa.lojademoveis.crudsenac.models.Cliente;
+import com.minhaempresa.lojademoveis.crudsenac.models.Vendas;
 import com.minhaempresa.lojademoveis.crudsenac.models.Produto;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -46,14 +48,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
-        lblCodProdutoVendas = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        labelNomeProduto = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        labelValorProduto = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jSpinner2 = new javax.swing.JSpinner();
+        labelQuantidadeProduto = new javax.swing.JSpinner();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel19 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -70,6 +71,9 @@ public class TelaInicial extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
+        txtCodigoProduto = new javax.swing.JTextField();
+        btnBuscarProduto = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
@@ -130,9 +134,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblCodProdutoVendas.setBorder(javax.swing.BorderFactory.createTitledBorder("Cod.Produto"));
-
-        jLabel16.setBorder(javax.swing.BorderFactory.createTitledBorder("Produto"));
+        labelNomeProduto.setBorder(javax.swing.BorderFactory.createTitledBorder("Produto"));
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -149,23 +151,23 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel17.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Valor"), "Desconto Total"));
 
-        jLabel18.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Valor"), "Valor Unit."));
+        labelValorProduto.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Valor"), "Valor Unit."));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Quantidade"));
 
-        jSpinner2.setBorder(null);
+        labelQuantidadeProduto.setBorder(null);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSpinner2, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+            .addComponent(labelQuantidadeProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(0, 1, Short.MAX_VALUE)
-                .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(labelQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jLabel19.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Valor"), "%Desconto"));
@@ -243,6 +245,21 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jButton7.setText("Finalizar Compra");
 
+        jLabel22.setText("Cod. Produto");
+
+        txtCodigoProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoProdutoActionPerformed(evt);
+            }
+        });
+
+        btnBuscarProduto.setText("buscar");
+        btnBuscarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarProdutoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -255,14 +272,21 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lblCodProdutoVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGap(32, 32, 32)
+                                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnBuscarProduto)))
+                            .addGap(31, 31, 31)
+                            .addComponent(labelNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelValorProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
@@ -305,21 +329,27 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblCodProdutoVendas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelValorProduto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)))
-                .addGap(26, 26, 26)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jLabel22))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton3)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnBuscarProduto))
+                                .addGap(28, 28, 28)))))
+                .addGap(9, 9, 9)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 38, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -823,7 +853,10 @@ public class TelaInicial extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1551, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1551, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1175,6 +1208,39 @@ public class TelaInicial extends javax.swing.JFrame {
             Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnExclurProdutoActionPerformed
+
+    private void txtCodigoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoProdutoActionPerformed
+
+    private void btnBuscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProdutoActionPerformed
+       
+        try {
+            String idCodProduto = txtCodigoProduto.getText().trim();
+
+            if (!idCodProduto.isEmpty()) {
+                int idProduto = Integer.parseInt(idCodProduto);
+                Vendas vendaProduto = buscarProdutoPorId(idProduto);
+
+                if (vendaProduto != null) {
+                    labelNomeProduto.setText(vendaProduto.getNomeProduto());
+                    labelValorProduto.setText(Double.toString(vendaProduto.getValorUnit()));
+                } else {
+                   
+                    JOptionPane.showMessageDialog(null, "Produto não encontrado");
+                }
+            } else {
+             //entrada do ID do produto está vazia
+                JOptionPane.showMessageDialog(null, "Informe o Codigo do produto");
+            }
+        } catch (NumberFormatException e) {
+            
+            JOptionPane.showMessageDialog(null, "Codigo do produto inválido. Digite um número válido.");
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnBuscarProdutoActionPerformed
     public void atualizarTabela() throws SQLException {
 
         //Chamar a DAO para consultar informaçoes do banco
@@ -1287,6 +1353,7 @@ public class TelaInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarCliente;
     private javax.swing.JButton btnAlterarProduto;
+    private javax.swing.JButton btnBuscarProduto;
     private javax.swing.JButton btnCadastrarCliente;
     private javax.swing.JButton btnCadastrarEnd;
     private javax.swing.JButton btnCadastrarProduto;
@@ -1311,13 +1378,12 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1347,17 +1413,19 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JSpinner jSpinner2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTable jTable3;
-    public javax.swing.JLabel lblCodProdutoVendas;
+    private javax.swing.JLabel labelNomeProduto;
+    private javax.swing.JSpinner labelQuantidadeProduto;
+    private javax.swing.JLabel labelValorProduto;
     private javax.swing.JMenuItem mnuAbreRelatorio;
     private javax.swing.JMenuItem mnuSairPrincipal;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblProdutos;
     private javax.swing.JFormattedTextField txtCodProduto;
+    private javax.swing.JTextField txtCodigoProduto;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextArea txtDescProduto;
