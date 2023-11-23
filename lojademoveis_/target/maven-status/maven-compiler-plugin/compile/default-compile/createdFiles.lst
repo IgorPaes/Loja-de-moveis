@@ -22,6 +22,7 @@ com\minhaempresa\lojademoveis\crudsenac\models\Cliente.class
 com\minhaempresa\lojademoveis\crudsenac\models\Produto.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin.class
 com\minhaempresa\lojademoveis\crudsenac\dao\VendasDAO.class
+com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$20.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$6.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaCadastroEndereco$2.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$18.class

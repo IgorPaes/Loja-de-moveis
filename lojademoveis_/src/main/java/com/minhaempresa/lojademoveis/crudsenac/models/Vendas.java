@@ -11,19 +11,19 @@ package com.minhaempresa.lojademoveis.crudsenac.models;
 public class Vendas {
     
     private Integer codProdutoFK, quantidade;
-    private String nomeProduto, nomeCliente, enderecoCliente;
+    private String nomeProduto, nomeCliente, enderecoCliente, cpfCliente;
     private Double valorUnit, desconto, descontoTotal, TotalPagar;
 
     public Vendas() {
     }
-    
 
-    public Vendas(Integer codProdutoFK, Integer quantidade, String nomeProduto, String nomeCliente, String enderecoCliente, Double valorUnit, Double desconto, Double descontoTotal, Double TotalPagar) {
+    public Vendas(Integer codProdutoFK, Integer quantidade, String nomeProduto, String nomeCliente, String enderecoCliente, String cpfCliente, Double valorUnit, Double desconto, Double descontoTotal, Double TotalPagar) {
         this.codProdutoFK = codProdutoFK;
         this.quantidade = quantidade;
         this.nomeProduto = nomeProduto;
         this.nomeCliente = nomeCliente;
         this.enderecoCliente = enderecoCliente;
+        this.cpfCliente = cpfCliente;
         this.valorUnit = valorUnit;
         this.desconto = desconto;
         this.descontoTotal = descontoTotal;
@@ -101,6 +101,12 @@ public class Vendas {
     public void setTotalPagar(Double TotalPagar) {
         this.TotalPagar = TotalPagar;
     }
-    
- 
+
+    public String getCpfCliente() {
+        return cpfCliente;
+    }
+
+    public void setCpfCliente(String cpfCliente) {
+        this.cpfCliente = cpfCliente;
+    }
 }
