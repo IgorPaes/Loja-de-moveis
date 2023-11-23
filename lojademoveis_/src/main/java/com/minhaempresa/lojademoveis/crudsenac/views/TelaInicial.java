@@ -64,8 +64,8 @@ public class TelaInicial extends javax.swing.JFrame {
         btnBuscarCliente = new javax.swing.JButton();
         lblNomeCliente = new javax.swing.JLabel();
         lblEnderecoCliente = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnAddPodutoCarrinho = new javax.swing.JButton();
+        bntRemoverProduto = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jSeparator3 = new javax.swing.JSeparator();
@@ -210,14 +210,19 @@ public class TelaInicial extends javax.swing.JFrame {
 
         lblEnderecoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço"));
 
-        jButton1.setText("Adicionar Produto");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAddPodutoCarrinho.setText("Adicionar Produto");
+        btnAddPodutoCarrinho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAddPodutoCarrinhoActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Remover Produto");
+        bntRemoverProduto.setText("Remover Produto");
+        bntRemoverProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntRemoverProdutoActionPerformed(evt);
+            }
+        });
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Frete"));
 
@@ -286,8 +291,8 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(bntRemoverProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAddPodutoCarrinho, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -349,9 +354,9 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGap(0, 3, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(btnAddPodutoCarrinho)
                                 .addGap(9, 9, 9)
-                                .addComponent(jButton3)
+                                .addComponent(bntRemoverProduto)
                                 .addGap(18, 18, 18))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel22)
@@ -1290,7 +1295,7 @@ public class TelaInicial extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAddPodutoCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPodutoCarrinhoActionPerformed
         
          int linhaSelecionada = tblVendas.getSelectedRow();
         
@@ -1308,7 +1313,15 @@ public class TelaInicial extends javax.swing.JFrame {
         Object[] rowData = {linha.getCodProdutoFK(), linha.getNomeProduto(), linha.getCategoria(), labelQuantidadeProduto.getValue(), linha.getValorUnit()};
         modelo.addRow(rowData);
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAddPodutoCarrinhoActionPerformed
+
+    private void bntRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntRemoverProdutoActionPerformed
+        
+        DefaultTableModel modelo = (DefaultTableModel) tblVendas.getModel();
+        
+        modelo.removeRow(0);
+        
+    }//GEN-LAST:event_bntRemoverProdutoActionPerformed
     public void atualizarTabela() throws SQLException {
 
         //Chamar a DAO para consultar informaçoes do banco
@@ -1419,6 +1432,8 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bntRemoverProduto;
+    private javax.swing.JButton btnAddPodutoCarrinho;
     private javax.swing.JButton btnAlterarCliente;
     private javax.swing.JButton btnAlterarProduto;
     private javax.swing.JButton btnBuscarCliente;
@@ -1433,9 +1448,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JComboBox<String> comboEstadoCivil;
     private javax.swing.JComboBox<String> comboSexo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JComboBox<String> jComboBox2;
