@@ -51,13 +51,12 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         labelNomeProduto = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jLabel17 = new javax.swing.JLabel();
+        tblVendas = new javax.swing.JTable();
         labelValorProduto = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         labelQuantidadeProduto = new javax.swing.JSpinner();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel19 = new javax.swing.JLabel();
+        txtDesconto = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel6 = new javax.swing.JPanel();
         lblCpfCliente = new javax.swing.JFormattedTextField();
@@ -138,7 +137,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         labelNomeProduto.setBorder(javax.swing.BorderFactory.createTitledBorder("Produto"));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tblVendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -149,9 +148,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 "Código", "Categoria", "Produto", "Valor", "Quantidade"
             }
         ));
-        jScrollPane7.setViewportView(jTable3);
-
-        jLabel17.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Valor"), "Desconto Total"));
+        jScrollPane7.setViewportView(tblVendas);
 
         labelValorProduto.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Valor"), "Valor Unit."));
 
@@ -172,7 +169,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(labelQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jLabel19.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Valor"), "%Desconto"));
+        txtDesconto.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Valor"), "%Desconto"));
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -216,6 +213,11 @@ public class TelaInicial extends javax.swing.JFrame {
         lblEnderecoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço"));
 
         jButton1.setText("Adicionar Produto");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Remover Produto");
 
@@ -300,9 +302,8 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addComponent(labelValorProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(133, 133, 133))
                         .addComponent(jSeparator1))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
@@ -338,9 +339,7 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(labelValorProduto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1251,6 +1250,10 @@ public class TelaInicial extends javax.swing.JFrame {
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        int desc = 10;
+        
+        txtDesconto.setText(desc + "%");
 
     }//GEN-LAST:event_btnBuscarProdutoActionPerformed
 
@@ -1283,6 +1286,16 @@ public class TelaInicial extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+         int linhaSelecionada = tblVendas.getSelectedRow();
+        
+        DefaultTableModel modelo = (DefaultTableModel) tblVendas.getModel();
+        
+        modelo.addRow(new Object[]{"dgfhhdfhfh","fdgsdghsfdghfghfd"});
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
     public void atualizarTabela() throws SQLException {
 
         //Chamar a DAO para consultar informaçoes do banco
@@ -1418,8 +1431,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -1456,7 +1467,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
-    private javax.swing.JTable jTable3;
     private javax.swing.JLabel labelNomeProduto;
     private javax.swing.JSpinner labelQuantidadeProduto;
     private javax.swing.JLabel labelValorProduto;
@@ -1467,11 +1477,13 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuSairPrincipal;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblProdutos;
+    private javax.swing.JTable tblVendas;
     private javax.swing.JFormattedTextField txtCodProduto;
     private javax.swing.JTextField txtCodigoProduto;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextArea txtDescProduto;
+    private javax.swing.JLabel txtDesconto;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtNome;

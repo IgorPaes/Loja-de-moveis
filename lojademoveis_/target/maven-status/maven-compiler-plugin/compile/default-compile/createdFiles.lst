@@ -43,6 +43,7 @@ com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin$2.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaRelatório$1.class
 com\minhaempresa\lojademoveis\crudsenac\service\ConsultaCepException.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaCadastroEndereco.class
+com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$21.class
 com\minhaempresa\lojademoveis\crudsenac\models\Endereco.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$16.class
 com\minhaempresa\lojademoveis\crudsenac\dao\ClientesDAO.class

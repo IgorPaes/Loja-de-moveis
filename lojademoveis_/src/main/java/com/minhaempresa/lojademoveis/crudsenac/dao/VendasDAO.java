@@ -53,7 +53,6 @@ public class VendasDAO {
                     cliente.setNomeCliente(rs.getString("NOME"));
                     cliente.setEnderecoCliente(rs.getString("logradouro"));
                     
-                  
                 }    
             }
         }
