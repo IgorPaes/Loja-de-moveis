@@ -61,29 +61,29 @@ public class VendasDAO {
         return cliente;
     }
     
-    public static ArrayList<Vendas> mostraTabelaVendas() throws ClassNotFoundException, SQLException{
-
-        ArrayList<Vendas> listaDeVendas = new ArrayList<>();
+    public static Vendas mostraTabelaVendas(int id) throws ClassNotFoundException, SQLException{
+        Vendas iVendas = new Vendas();
         
         try(Connection conn = Conexao.abrirConexao();
-                
-        PreparedStatement modeloSQL = conn.prepareStatement("select codigo_produto,nome,categoria,preco,quantidade from produtos"); 
-        ResultSet resultSet = modeloSQL.executeQuery()) {
+          
+        PreparedStatement modeloSQL = conn.prepareStatement("select codigo_produto,nome,categoria,preco from produtos where codigo_produto = ?")) {
            
-            Vendas iVendas = new Vendas();
-            while(resultSet.next()) {
-                iVendas.setCodProdutoFK(resultSet.getInt("codigo_produto"));
-                iVendas.setNomeProduto(resultSet.getString("nome"));  
-                iVendas.setCategoria(resultSet.getString("categoria"));
-                iVendas.setValorUnit(resultSet.getDouble("preco"));
-                iVendas.setQuantidade(resultSet.getInt("quantidade"));
-                listaDeVendas.add(iVendas);
-            }
+            modeloSQL.setInt(1, id);
 
+            try(ResultSet resultSet = modeloSQL.executeQuery()) {
+  
+                if(resultSet.next()) {
+                    iVendas.setCodProdutoFK(resultSet.getInt("codigo_produto"));
+                    iVendas.setNomeProduto(resultSet.getString("nome"));  
+                    iVendas.setCategoria(resultSet.getString("categoria"));
+                    iVendas.setValorUnit(resultSet.getDouble("preco"));
+                }
+
+            }
             
         }
                 
-        return listaDeVendas;
+        return iVendas;
     }
 
 }
