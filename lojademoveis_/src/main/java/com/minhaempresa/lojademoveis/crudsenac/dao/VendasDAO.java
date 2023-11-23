@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -41,10 +42,11 @@ public class VendasDAO {
         Vendas cliente = null;
         
         try (Connection conn = Conexao.abrirConexao();
-             PreparedStatement modeloSQL = conn.prepareStatement("select cl.NOME, end.logradouro from clientes cl\n" +
-"inner join endereco end on cl.ID_CLIENTE = end.id_clientes\n" +
-"where cl.CPF = ?")) {
-            
+                
+        PreparedStatement modeloSQL = conn.prepareStatement("select cl.NOME, end.logradouro from clientes cl\n" +
+            "inner join endereco end on cl.ID_CLIENTE = end.id_clientes\n" +
+            "where cl.CPF = ?")) 
+        {
             modeloSQL.setString(1, cpfCliente);
             
             try (ResultSet rs = modeloSQL.executeQuery()) {
@@ -58,7 +60,30 @@ public class VendasDAO {
         }
         return cliente;
     }
+    
+    public static ArrayList<Vendas> mostraTabelaVendas() throws ClassNotFoundException, SQLException{
+
+        ArrayList<Vendas> listaDeVendas = new ArrayList<>();
+        
+        try(Connection conn = Conexao.abrirConexao();
+                
+        PreparedStatement modeloSQL = conn.prepareStatement("select codigo_produto,nome,categoria,preco,quantidade from produtos"); 
+        ResultSet resultSet = modeloSQL.executeQuery()) {
+           
+            Vendas iVendas = new Vendas();
+            while(resultSet.next()) {
+                iVendas.setCodProdutoFK(resultSet.getInt("codigo_produto"));
+                iVendas.setNomeProduto(resultSet.getString("nome"));  
+                iVendas.setCategoria(resultSet.getString("categoria"));
+                iVendas.setValorUnit(resultSet.getDouble("preco"));
+                iVendas.setQuantidade(resultSet.getInt("quantidade"));
+                listaDeVendas.add(iVendas);
+            }
+
+            
+        }
+                
+        return listaDeVendas;
+    }
+
 }
-    
-    
-    
