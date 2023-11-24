@@ -33,7 +33,7 @@ public class ClientesDAO {
             //comandoSQL.setInt(1, obj.g);
 
             comandoSQL.setString(1, obj.getNome());
-            comandoSQL.setString(2, obj.cpfFormatada());
+            comandoSQL.setString(2, obj.getCpf());
             comandoSQL.setString(3, obj.telefoneFormatada());
             comandoSQL.setString(4, obj.getEmail());
             comandoSQL.setString(5, String.valueOf(obj.getSexo()));

@@ -19,10 +19,10 @@ public class Conexao {
     public static String DRIVER = "com.mysql.cj.jdbc.Driver";  //A partir da versao 8.0, mudou para com.mysql.cj.jdbc.Driver (Connector/J)                   
     
     public static String SERVER = "localhost";
-    public static String DATABASE = "lojamoveis";              //nome do seu banco de dados
+    public static String DATABASE = "lojademoveis";              //nome do seu banco de dados
     
     public static String LOGIN = "root";                     //nome de um usuário de seu BD      
-    public static String SENHA = "Lucas2000";                         //sua senha de acesso
+    public static String SENHA = "45Pass#DB";                         //sua senha de acesso
     
     public static String URL = "";
     
@@ -34,8 +34,8 @@ public class Conexao {
  
         URL = "jdbc:mysql://" + SERVER + ":3306/" +DATABASE + "?useTimezone=true&serverTimezone=UTC&useSSL=false";
         
-        if(CONEXAO==null)      
-        {    
+        if(CONEXAO == null) {
+            
             try {
 
                 //Carrega a classe responsável pelo driver
@@ -58,9 +58,8 @@ public class Conexao {
                 throw new SQLException("Erro ao estabelecer a conexão (Ex: login ou senha errados).");
             }
             
-        }
-        else
-        {
+        }else {
+        
             try {
                 //Se a conexão estiver fechada, reabro a conexão
                 if(CONEXAO.isClosed())
@@ -68,6 +67,7 @@ public class Conexao {
             } catch (SQLException ex) {
                 throw new SQLException("Falha ao fechar a conexão.");
             }
+        
         }
         return CONEXAO;
     }

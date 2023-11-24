@@ -140,26 +140,24 @@ public class Cliente {
     
       public String cpfFormatada(){
         String cpfLimpo = this.cpf.replaceAll("[^0-9]", "");
-      
         return cpfLimpo;
     }
     
     public String telefoneFormatada(){
     
         String telefoneLimpo = this.telefone.replaceAll("[^0-9]", "");
-      
+
         return telefoneLimpo;
     }
     
       public String dataFormatada() throws ParseException{
-          
-          SimpleDateFormat sdfAtual = new SimpleDateFormat("dd/MM/yyyy");
-          Date dataAtual = sdfAtual.parse(this.data);
-          
-          
-            SimpleDateFormat sdfSaida = new SimpleDateFormat("yyyy-MM-dd");
-            String dataAmericana = sdfSaida.format(dataAtual);
-            return dataAmericana;
+
+        SimpleDateFormat sdfAtual = new SimpleDateFormat("dd/MM/yyyy");
+        Date dataAtual = sdfAtual.parse(this.data);
+
+        SimpleDateFormat sdfSaida = new SimpleDateFormat("yyyy-MM-dd");
+        String dataAmericana = sdfSaida.format(dataAtual);
+        return dataAmericana;
     }
     
 }

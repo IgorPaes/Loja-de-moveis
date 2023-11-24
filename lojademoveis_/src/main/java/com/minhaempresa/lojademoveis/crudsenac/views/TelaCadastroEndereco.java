@@ -73,6 +73,12 @@ public class TelaCadastroEndereco extends javax.swing.JFrame {
 
         jLabel3.setText("Cidade:");
 
+        txtCidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCidadeActionPerformed(evt);
+            }
+        });
+
         jLabel4.setText("Bairro:");
 
         jLabel5.setText("Complemento:");
@@ -96,6 +102,14 @@ public class TelaCadastroEndereco extends javax.swing.JFrame {
         txtCep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCepActionPerformed(evt);
+            }
+        });
+        txtCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCepKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCepKeyReleased(evt);
             }
         });
 
@@ -204,46 +218,62 @@ public class TelaCadastroEndereco extends javax.swing.JFrame {
 
     private void btnConfirmarEndereçoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEndereçoActionPerformed
 
-        String cep = txtCep.getText();
         try {
-        EnderecoCliente enderecoCliente = CepService.consultar(cep);
+            
+            String cep = txtCep.getText();
+            String logradouro = txtLogradouro.getText();
+            Integer numero = parseInt(txtNumCasa.getText());
+            String cidade = txtCidade.getText();
+            String bairro = txtBairro.getText();
+            String complemento = txtComplemento.getText();
+
+            boolean retorno;
+
+            Endereco infosEndereco = new Endereco(cep, logradouro, numero, cidade, bairro, complemento);
+
+            retorno = EnderecoDAO.salvar(infosEndereco, idCliente);
+
+            if (retorno) {
+                JOptionPane.showMessageDialog(rootPane, "Sucesso ");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Falha ");
+            }
+
+            TelaInicial tela = new TelaInicial();
+            tela.setVisible(true);
+            dispose();
         
-        txtLogradouro.setText(enderecoCliente.getLogradouro());
-        txtCidade.setText(enderecoCliente.getCidade());
-        txtBairro.setText(enderecoCliente.getBairro());
-        
-        String logradouro = txtLogradouro.getText();
-        Integer numero = parseInt(txtNumCasa.getText());
-        String cidade = txtCidade.getText();
-        String bairro = txtBairro.getText();
-        String complemento = txtComplemento.getText();
-
-        boolean retorno;
-
-        Endereco infosEndereco = new Endereco(cep, logradouro, numero, cidade, bairro, complemento);
-
-        retorno = EnderecoDAO.salvar(infosEndereco, idCliente);
-
-        if (retorno) {
-            JOptionPane.showMessageDialog(rootPane, "Sucesso ");
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Falha ");
-        }
-
-        TelaInicial tela = new TelaInicial();
-        tela.setVisible(true);
-        dispose();
-        
-          } catch (ConsultaCepException | NumberFormatException e) {
-      
+        } catch (ConsultaCepException | NumberFormatException e) {
             System.out.println(e.getMessage());
-    }
-
+        }
     }//GEN-LAST:event_btnConfirmarEndereçoActionPerformed
 
     private void txtCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCepActionPerformed
-        // TODO add your handling code here:
+
+        
     }//GEN-LAST:event_txtCepActionPerformed
+
+    private void txtCepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyPressed
+
+    }//GEN-LAST:event_txtCepKeyPressed
+
+    private void txtCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCidadeActionPerformed
+
+    private void txtCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyReleased
+        String cepComMascara = txtCep.getText();
+        String cep = cepComMascara.replaceAll("\\D", "");
+        
+        if((cep.length() + 1) == 9) {
+
+            EnderecoCliente enderecoCliente = CepService.consultar(cep);
+            txtLogradouro.setText(enderecoCliente.getLogradouro());
+            txtCidade.setText(enderecoCliente.getCidade());
+            txtBairro.setText(enderecoCliente.getBairro());
+            
+        }
+    }//GEN-LAST:event_txtCepKeyReleased
 
     /**
      * @param args the command line arguments
