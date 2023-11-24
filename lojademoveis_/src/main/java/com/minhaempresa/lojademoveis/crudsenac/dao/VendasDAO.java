@@ -12,10 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
- * @author Lucas Andrade
- */
 public class VendasDAO {
    
     public static Vendas buscarProdutoPorId(int codProduto) throws SQLException, ClassNotFoundException {

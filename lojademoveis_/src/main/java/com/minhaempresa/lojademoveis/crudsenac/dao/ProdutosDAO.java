@@ -14,10 +14,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Lucas Andrade
- */
 public class ProdutosDAO {
   
     public static Connection conn = null;

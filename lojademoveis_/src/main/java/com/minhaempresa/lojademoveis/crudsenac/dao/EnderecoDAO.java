@@ -12,11 +12,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-/**
- *
- * @author Lucas Andrade
- */
 public class EnderecoDAO {
     
       public static Connection conn = null;
@@ -27,8 +22,8 @@ public class EnderecoDAO {
         try {
             conn = Conexao.abrirConexao();
             
-            PreparedStatement comandoSQL = conn.prepareStatement("INSERT INTO endereco (cep, logradouro, numero, cidade, bairro, complemento, id_clientes) VALUES(?,?,?,?,?,?,?)"
-                                                , PreparedStatement.RETURN_GENERATED_KEYS );
+            PreparedStatement comandoSQL = conn.prepareStatement("INSERT INTO endereco (cep, logradouro, numero, cidade, bairro, complemento, id_clientes) VALUES(?,?,?,?,?,?,?)", 
+            PreparedStatement.RETURN_GENERATED_KEYS);
             //comandoSQL.setInt(1, obj.g);
             
             comandoSQL.setString(1, obj.removerCaracteresEspeciaisCep());
