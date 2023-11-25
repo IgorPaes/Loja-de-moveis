@@ -9,6 +9,7 @@ com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$5.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$14.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$24.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$17.class
+com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$27.class
 com\minhaempresa\lojademoveis\crudsenac\dao\ProdutosDAO.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$3.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin$4.class
@@ -23,6 +24,7 @@ com\minhaempresa\lojademoveis\crudsenac\models\Cliente.class
 com\minhaempresa\lojademoveis\crudsenac\models\Produto.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin.class
 com\minhaempresa\lojademoveis\crudsenac\dao\VendasDAO.class
+com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$26.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$20.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$6.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaCadastroEndereco$2.class
