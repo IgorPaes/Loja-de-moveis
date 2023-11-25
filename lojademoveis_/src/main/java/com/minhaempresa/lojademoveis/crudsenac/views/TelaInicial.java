@@ -94,7 +94,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         selectFrete = new javax.swing.JComboBox<>();
         jSeparator3 = new javax.swing.JSeparator();
-        jButton2 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
@@ -426,6 +425,11 @@ public class TelaInicial extends javax.swing.JFrame {
                 selectFreteMouseClicked(evt);
             }
         });
+        selectFrete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectFreteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -443,8 +447,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(selectFrete, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        jButton2.setText("Forma de Pagamento");
 
         jButton6.setText("Cancelar Compra");
 
@@ -556,7 +558,6 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(txtVT2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtVT3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtVT1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(16, Short.MAX_VALUE))
@@ -613,8 +614,6 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(txtVT2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtVT3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1144,41 +1143,17 @@ public class TelaInicial extends javax.swing.JFrame {
                 totalValores += ((Number) valorUni).intValue();
             }
 
-            calcDescUni = totalValores - (totalValores * 10/100) + frete();
+            calcDescUni = totalValores - (totalValores * 10/100);
 
             txtVT1.setText("Desconto: " + calcDescUni);
             txtVT3.setText("Total: " + (calcDescUni));
             
         }else {
-            JOptionPane.showMessageDialog(rootPane, "Preencha o campo do código ou selecione uma quantidade maior que 0");
+            JOptionPane.showMessageDialog(rootPane, "Preencha o campo do código ou selecione uma quantidade maior que 0.");
         }
    
     }//GEN-LAST:event_jButton1ActionPerformed
 
-     public int frete() {
-            int selectIndex = selectFrete.getSelectedIndex();
-            
-            if (selectIndex != -1) {
-                
-                DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) selectFrete.getModel();
-                
-                String selectValue = model.getElementAt(selectIndex);
-                
-                txtVT2.setText(selectValue);
-                
-                int freteValue;
-                if (selectIndex == 1){
-                    freteValue = 45;
-                }else{
-                    freteValue = 15;
-                }
-                
-                return freteValue;
-                
-                }
-            
-            return 0;
-            }
     private void lblCpfClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblCpfClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_lblCpfClienteActionPerformed
@@ -1399,6 +1374,25 @@ public class TelaInicial extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void selectFreteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectFreteActionPerformed
+    
+        int selectIndex = selectFrete.getSelectedIndex();
+        if(selectIndex > 0) {
+            int valorFrete = 0;
+            switch(selectIndex) {
+                case 1:
+                    valorFrete = 45;
+                break;
+                case 2:
+                    valorFrete = 15;
+                break;
+            }
+            txtVT2.setText("Frete: " + valorFrete);
+            txtVT3.setText("Total: " + (calcDescUni + valorFrete));
+        }
+    
+    }//GEN-LAST:event_selectFreteActionPerformed
     
     public void atualizarTabela() throws SQLException {
 
@@ -1525,7 +1519,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboEstadoCivil;
     private javax.swing.JComboBox<String> comboSexo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;

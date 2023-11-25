@@ -19,11 +19,13 @@ public class Conexao {
     public static String DRIVER = "com.mysql.cj.jdbc.Driver";  //A partir da versao 8.0, mudou para com.mysql.cj.jdbc.Driver (Connector/J)                   
     
     public static String SERVER = "localhost";
-    public static String DATABASE = "lojamoveis";              //nome do seu banco de dados
-    
+    public static String DATABASE = "lojademoveis";              //nome do seu banco de dados
+                                // lojamoveis
+                                // lojademoveis
     public static String LOGIN = "root";                     //nome de um usuário de seu BD      
-    public static String SENHA = "Lucas2000";                         //sua senha de acesso
-    
+    public static String SENHA = "45Pass#DB";                         //sua senha de acesso
+                                //Lucas2000
+                                //45Pass#DB
     public static String URL = "";
     
     public static Connection CONEXAO;

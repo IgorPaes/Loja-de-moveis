@@ -491,7 +491,6 @@
                               </Group>
                               <Component id="txtVT2" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtVT3" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jButton2" min="-2" pref="200" max="-2" attributes="0"/>
                               <Component id="txtVT1" alignment="0" max="32767" attributes="0"/>
                               <Component id="jDesktopPane1" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -560,8 +559,6 @@
                               <Component id="txtVT2" min="-2" pref="28" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtVT3" min="-2" pref="28" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" pref="49" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jButton6" alignment="3" min="-2" pref="84" max="-2" attributes="0"/>
@@ -841,6 +838,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="selectFreteMouseClicked"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectFreteActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -849,11 +847,6 @@
               </SubComponents>
             </Container>
             <Component class="javax.swing.JSeparator" name="jSeparator3">
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Forma de Pagamento"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton6">
               <Properties>
