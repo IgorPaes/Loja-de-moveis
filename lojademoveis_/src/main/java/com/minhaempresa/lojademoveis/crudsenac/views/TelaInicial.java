@@ -1367,8 +1367,28 @@ public class TelaInicial extends javax.swing.JFrame {
         int selectedRow = tblVendas.getSelectedRow();
 
         if (selectedRow != -1) {
-            // Remove a linha selecionada do modelo
+            
+            Vendas linha = null;
+            try {
+                linha = VendasDAO.mostraTabelaVendas(Integer.parseInt(txtCodigoProduto.getText()));
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             modelo.removeRow(selectedRow);
+            
+            int totalValores = 0;
+            int rowCount = modelo.getRowCount();
+            for(int i = 0; i < rowCount; i++) {
+                Object valorUni = modelo.getValueAt(i, 4);
+                totalValores += ((Number) valorUni).intValue();
+            }
+
+            calcDescUni = totalValores - (totalValores * 10/100);
+
+            txtVT1.setText("Desconto: " + calcDescUni);
+            txtVT3.setText("Total: " + calcDescUni);
+           
         } else {
             JOptionPane.showMessageDialog(null, "Selecione uma linha para remover.");
         }
