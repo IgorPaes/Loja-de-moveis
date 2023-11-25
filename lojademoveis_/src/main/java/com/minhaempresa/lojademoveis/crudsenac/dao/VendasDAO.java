@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class VendasDAO {
    
@@ -82,4 +83,11 @@ public class VendasDAO {
         return iVendas;
     }
 
+    public static void armazenarVenda(ArrayList<Vendas> lista) throws ClassNotFoundException, SQLException {
+        
+        JOptionPane.showMessageDialog(null, "123");
+ 
+    }
+    
+    
 }

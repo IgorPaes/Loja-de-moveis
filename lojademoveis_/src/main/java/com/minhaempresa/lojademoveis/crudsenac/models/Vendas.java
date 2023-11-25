@@ -4,18 +4,13 @@
  */
 package com.minhaempresa.lojademoveis.crudsenac.models;
 
-/**
- *
- * @author Lucas Andrade
- */
 public class Vendas {
     
     private Integer codProdutoFK, quantidade;
     private String nomeProduto, nomeCliente, enderecoCliente, cpfCliente, categoria;
     private Double valorUnit, desconto, descontoTotal, TotalPagar;
 
-    public Vendas() {
-    }
+    public Vendas() {}
 
     public Vendas(Integer codProdutoFK, Integer quantidade, String nomeProduto, String nomeCliente, String enderecoCliente, String cpfCliente, String categoria, Double valorUnit, Double desconto, Double descontoTotal, Double TotalPagar) {
         this.codProdutoFK = codProdutoFK;
