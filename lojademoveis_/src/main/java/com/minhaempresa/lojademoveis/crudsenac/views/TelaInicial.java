@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -1135,7 +1136,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
             Object[] rowData = {linha.getCodProdutoFK(), linha.getNomeProduto(), linha.getCategoria(), labelQuantidadeProduto.getValue(), linha.getValorUnit()};
             modelo.addRow(rowData);
-
+         
             int totalValores = 0;
             int rowCount = modelo.getRowCount();
             for(int i = 0; i < rowCount; i++) {
@@ -1143,7 +1144,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 totalValores += ((Number) valorUni).intValue();
             }
 
-            calcDescUni = totalValores - (totalValores * 10/100);
+            calcDescUni = totalValores - (totalValores * 10/100) + frete();
 
             txtVT1.setText("Desconto: " + calcDescUni);
             txtVT3.setText("Total: " + (calcDescUni));
@@ -1154,6 +1155,30 @@ public class TelaInicial extends javax.swing.JFrame {
    
     }//GEN-LAST:event_jButton1ActionPerformed
 
+     public int frete() {
+            int selectIndex = selectFrete.getSelectedIndex();
+            
+            if (selectIndex != -1) {
+                
+                DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) selectFrete.getModel();
+                
+                String selectValue = model.getElementAt(selectIndex);
+                
+                txtVT2.setText(selectValue);
+                
+                int freteValue;
+                if (selectIndex == 1){
+                    freteValue = 45;
+                }else{
+                    freteValue = 15;
+                }
+                
+                return freteValue;
+                
+                }
+            
+            return 0;
+            }
     private void lblCpfClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblCpfClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_lblCpfClienteActionPerformed
