@@ -15,6 +15,7 @@ import com.minhaempresa.lojademoveis.crudsenac.models.Endereco;
 import com.minhaempresa.lojademoveis.crudsenac.models.Vendas;
 import com.minhaempresa.lojademoveis.crudsenac.models.Produto;
 import com.minhaempresa.lojademoveis.crudsenac.models.TelaCadastro;
+import com.minhaempresa.lojademoveis.crudsenac.models.Venda;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -604,9 +605,7 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jSeparator2)
-                        .addContainerGap())
+                    .addComponent(jSeparator2)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -657,7 +656,8 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Vender", jPanel3);
@@ -1383,25 +1383,19 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
-        ArrayList<Vendas> listaTabela = new ArrayList<>();
-       
-        Vendas objInfosLinha = new Vendas();
-        
+        ArrayList<Venda> listaTabela = new ArrayList<>();
         DefaultTableModel modelo = (DefaultTableModel) tblVendas.getModel();
-        
-        try {
-            VendasDAO.armazenarVenda(listaTabela);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        int rowCount = modelo.getRowCount();
+       int rowCount = modelo.getRowCount();
 
         for (int i = 0; i < rowCount; i++) {
-            modelo.getDataVector().elementAt(i);
+           Venda objInfosLinha = new Venda();
+            
+            String idProduto = (String) modelo.getValueAt(i, 3);
+            String prcoProduto = (String) modelo.getValueAt(i, 4);
+            
+           
+            
         }
-        
-        
         
     }//GEN-LAST:event_jButton7ActionPerformed
 

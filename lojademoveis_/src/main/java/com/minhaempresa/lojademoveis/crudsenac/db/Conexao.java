@@ -23,7 +23,7 @@ public class Conexao {
                                 // lojamoveis
                                 // lojademoveis
     public static String LOGIN = "root";                     //nome de um usuário de seu BD      
-    public static String SENHA = "45Pass#DB";                         //sua senha de acesso
+    public static String SENHA = "Lucas2000";                         //sua senha de acesso
                                 //Lucas2000
                                 //45Pass#DB
     public static String URL = "";

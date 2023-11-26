@@ -5,6 +5,7 @@
 package com.minhaempresa.lojademoveis.crudsenac.dao;
 
 import com.minhaempresa.lojademoveis.crudsenac.db.Conexao;
+import com.minhaempresa.lojademoveis.crudsenac.models.Venda;
 import com.minhaempresa.lojademoveis.crudsenac.models.Vendas;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,9 +41,10 @@ public class VendasDAO {
         
         try (Connection conn = Conexao.abrirConexao();
                 
-        PreparedStatement modeloSQL = conn.prepareStatement("select cl.nome, end.logradouro from clientes cl\n" +
-            "inner join enderecos end on cl.id_cliente = end.id_cliente\n" +
-            "where cl.cpf = ?")) 
+        PreparedStatement modeloSQL = conn.prepareStatement("SELECT cl.nome, end.logradouro " +
+        "FROM clientes cl " +
+        "INNER JOIN enderecos end ON cl.id_endereco = end.id_endereco " +
+        "WHERE cl.cpf = ?")) 
         {
             modeloSQL.setString(1, cpfCliente);
             
@@ -83,11 +85,33 @@ public class VendasDAO {
         return iVendas;
     }
 
-    public static void armazenarVenda(ArrayList<Vendas> lista) throws ClassNotFoundException, SQLException {
+    public static boolean armazenarVenda(ArrayList<Venda> lista) throws ClassNotFoundException, SQLException {
         
-        JOptionPane.showMessageDialog(null, "123");
+        boolean inseriu = false;
+
+        for (Venda vendas : lista) {
+            try (Connection conn = Conexao.abrirConexao();
+                   PreparedStatement SQL = conn.prepareStatement("INSERT INTO vendas (id_produto, id_cliente, quantidade, preco, data) VALUES (?, ?, ?, ?, NOW())");
+) {
+                SQL.setInt(1, vendas.getIdProduto());
+                SQL.setDouble(2, vendas.getIdCliente());
+                SQL.setDouble(3, vendas.getQuantidadeProduto());
+                SQL.setDouble(4, vendas.getValorTotal());
+                
+                int linhasAfetadas = SQL.executeUpdate();
+
+                if (linhasAfetadas > 0) {
+                    inseriu = true;
+                }
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return inseriu;
+    }
  
     }
     
     
-}
