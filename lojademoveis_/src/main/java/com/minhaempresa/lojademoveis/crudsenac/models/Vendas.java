@@ -8,11 +8,12 @@ public class Vendas {
     
     private Integer codProdutoFK, quantidade;
     private String nomeProduto, nomeCliente, enderecoCliente, cpfCliente, categoria;
-    private Double valorUnit, desconto, descontoTotal, TotalPagar;
+    private Double desconto, descontoTotal, TotalPagar;
+    private Float valorUnit;
 
     public Vendas() {}
 
-    public Vendas(Integer codProdutoFK, Integer quantidade, String nomeProduto, String nomeCliente, String enderecoCliente, String cpfCliente, String categoria, Double valorUnit, Double desconto, Double descontoTotal, Double TotalPagar) {
+    public Vendas(Integer codProdutoFK, Integer quantidade, String nomeProduto, String nomeCliente, String enderecoCliente, String cpfCliente, String categoria, Float valorUnit, Double desconto, Double descontoTotal, Double TotalPagar) {
         this.codProdutoFK = codProdutoFK;
         this.quantidade = quantidade;
         this.nomeProduto = nomeProduto;
@@ -66,11 +67,11 @@ public class Vendas {
         this.enderecoCliente = enderecoCliente;
     }
 
-    public Double getValorUnit() {
+    public Float getValorUnit() {
         return valorUnit;
     }
 
-    public void setValorUnit(Double valorUnit) {
+    public void setValorUnit(Float valorUnit) {
         this.valorUnit = valorUnit;
     }
 

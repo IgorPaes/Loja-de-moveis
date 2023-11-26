@@ -8,7 +8,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
+/**
+ *
+ * @author gotib
+ */
 public class Cliente {
     
     private int idCliente;
@@ -17,19 +20,17 @@ public class Cliente {
     private String telefone;
     private String email;
     private char sexo;
-    private String estadoCivil;
+    private char estadoCivil;
     private String data;
-    private Endereco endereco;
+    private int idEndereco;
     
-    public Cliente(){
-        
-    }
+    public Cliente() {}
     
     public Cliente(int idCliente){
         this.idCliente = idCliente;
     }
     
-    public Cliente(Integer idCliente, String nome, String cpf, String telefone, String email, char sexo, String estadoCivil, String data) {
+    public Cliente(Integer idCliente, String nome, String cpf, String telefone, String email, char sexo, char estadoCivil, String data) {
         this.idCliente = idCliente;
         this.nome = nome;
         this.cpf = cpf;
@@ -40,9 +41,7 @@ public class Cliente {
         this.data = data;
     }
     
-
-    public Cliente( String nome, String cpf, String telefone, String email, char sexo, String estadoCivil, String data) {
-        
+    public Cliente(String nome, String cpf, String telefone, String email, char sexo, char estadoCivil, String data) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -52,8 +51,7 @@ public class Cliente {
         this.data = data;
     }
     
-    public Cliente(int idCliente, String nome, String cpf, String telefone, String email, char sexo, String estadoCivil, String data, Endereco endereco) {
-       this.idCliente = idCliente;
+    public Cliente(String nome, String cpf, String telefone, String email, char sexo, char estadoCivil, String data, int endereco) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -61,7 +59,11 @@ public class Cliente {
         this.sexo = sexo;
         this.estadoCivil = estadoCivil;
         this.data = data;
-        this.endereco = endereco;
+        this.idEndereco = endereco;
+    }
+    
+    public int getIdEndereco() {
+        return idEndereco;
     }
     
     public int getIdCliente() {
@@ -112,11 +114,11 @@ public class Cliente {
         this.sexo = sexo;
     }
 
-    public String getEstadoCivil() {
+    public char getEstadoCivil() {
         return estadoCivil;
     }
 
-    public void setEstadoCivil(String estadoCivil) {
+    public void setEstadoCivil(char estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
 
@@ -130,15 +132,7 @@ public class Cliente {
         this.data = data;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-    
-      public String cpfFormatada(){
+    public String cpfFormatada(){
         String cpfLimpo = this.cpf.replaceAll("[^0-9]", "");
         return cpfLimpo;
     }
@@ -159,5 +153,5 @@ public class Cliente {
         String dataAmericana = sdfSaida.format(dataAtual);
         return dataAmericana;
     }
-    
+  
 }

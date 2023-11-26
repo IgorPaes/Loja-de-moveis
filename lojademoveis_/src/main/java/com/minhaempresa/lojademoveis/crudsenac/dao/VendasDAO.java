@@ -19,15 +19,15 @@ public class VendasDAO {
         Vendas produto = null;
 
         try (Connection conn = Conexao.abrirConexao();
-             PreparedStatement modeloSQL = conn.prepareStatement("SELECT NOME, PRECO FROM produtos WHERE CODIGO_PRODUTO = ?")) {
+             PreparedStatement modeloSQL = conn.prepareStatement("SELECT nome, preco FROM produtos WHERE id_produto = ?")) {
 
             modeloSQL.setInt(1, codProduto);
 
             try (ResultSet rs = modeloSQL.executeQuery()) {
                 if (rs.next()) {
                     produto = new Vendas();
-                    produto.setNomeProduto(rs.getString("NOME"));
-                    produto.setValorUnit(rs.getDouble("PRECO"));
+                    produto.setNomeProduto(rs.getString("nome"));
+                    produto.setValorUnit(rs.getFloat("preco"));
                 }
             }
         }
@@ -40,16 +40,16 @@ public class VendasDAO {
         
         try (Connection conn = Conexao.abrirConexao();
                 
-        PreparedStatement modeloSQL = conn.prepareStatement("select cl.NOME, end.logradouro from clientes cl\n" +
-            "inner join endereco end on cl.ID_CLIENTE = end.id_clientes\n" +
-            "where cl.CPF = ?")) 
+        PreparedStatement modeloSQL = conn.prepareStatement("select cl.nome, end.logradouro from clientes cl\n" +
+            "inner join enderecos end on cl.id_cliente = end.id_cliente\n" +
+            "where cl.cpf = ?")) 
         {
             modeloSQL.setString(1, cpfCliente);
             
             try (ResultSet rs = modeloSQL.executeQuery()) {
                 if (rs.next()) {
                     cliente = new Vendas();
-                    cliente.setNomeCliente(rs.getString("NOME"));
+                    cliente.setNomeCliente(rs.getString("nome"));
                     cliente.setEnderecoCliente(rs.getString("logradouro"));
                     
                 }    
@@ -63,17 +63,17 @@ public class VendasDAO {
         
         try(Connection conn = Conexao.abrirConexao();
           
-        PreparedStatement modeloSQL = conn.prepareStatement("select codigo_produto,nome,categoria,preco from produtos where codigo_produto = ?")) {
+        PreparedStatement modeloSQL = conn.prepareStatement("select id_produto,nome,categoria,preco from produtos where id_produto = ?")) {
            
             modeloSQL.setInt(1, id);
 
             try(ResultSet resultSet = modeloSQL.executeQuery()) {
   
                 if(resultSet.next()) {
-                    iVendas.setCodProdutoFK(resultSet.getInt("codigo_produto"));
+                    iVendas.setCodProdutoFK(resultSet.getInt("id_produto"));
                     iVendas.setNomeProduto(resultSet.getString("nome"));  
                     iVendas.setCategoria(resultSet.getString("categoria"));
-                    iVendas.setValorUnit(resultSet.getDouble("preco"));
+                    iVendas.setValorUnit(resultSet.getFloat("preco"));
                 }
 
             }

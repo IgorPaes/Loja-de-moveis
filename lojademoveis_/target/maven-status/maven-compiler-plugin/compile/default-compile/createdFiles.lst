@@ -48,11 +48,13 @@ com\minhaempresa\lojademoveis\crudsenac\views\TelaRelatório$2.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaCadastroEndereco$3.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$8.class
 com\minhaempresa\lojademoveis\crudsenac\dao\EnderecoDAO.class
+com\minhaempresa\lojademoveis\crudsenac\models\Venda.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaCadastroEndereco$6.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$28.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaLogin$2.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaRelatório$1.class
 com\minhaempresa\lojademoveis\crudsenac\service\ConsultaCepException.class
+com\minhaempresa\lojademoveis\crudsenac\views\TelaCadastroEndereco$7.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaCadastroEndereco.class
 com\minhaempresa\lojademoveis\crudsenac\views\TelaInicial$21.class
 com\minhaempresa\lojademoveis\crudsenac\models\Endereco.class

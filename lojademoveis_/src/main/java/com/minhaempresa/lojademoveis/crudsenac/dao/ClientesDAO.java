@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class ClientesDAO {
 
@@ -23,8 +24,8 @@ public class ClientesDAO {
 
         try {
             conn = Conexao.abrirConexao();
-
-            PreparedStatement comandoSQL = conn.prepareStatement("INSERT INTO clientes (NOME, CPF, TELEFONE, EMAIL, SEXO, ESTADO_CIVIL, DATA_NASCIMENTO) VALUES(?,?,?,?,?,?,?)",
+            JOptionPane.showMessageDialog(null, obj.getIdEndereco());
+            PreparedStatement comandoSQL = conn.prepareStatement("INSERT INTO clientes (nome, cpf, telefone, email, sexo, estado_civil, data_nascimento, id_endereco) VALUES(?,?,?,?,?,?,?,?)",
                      PreparedStatement.RETURN_GENERATED_KEYS);
             //comandoSQL.setInt(1, obj.g);
 
@@ -33,8 +34,9 @@ public class ClientesDAO {
             comandoSQL.setString(3, obj.telefoneFormatada());
             comandoSQL.setString(4, obj.getEmail());
             comandoSQL.setString(5, String.valueOf(obj.getSexo()));
-            comandoSQL.setString(6, obj.getEstadoCivil());
+            comandoSQL.setString(6, Character.toString(obj.getEstadoCivil()));
             comandoSQL.setString(7, obj.dataFormatada());
+            comandoSQL.setInt(8, obj.getIdEndereco());
 
             //Passo 4 - Executar o comando 
             comandoSQL.executeUpdate();
@@ -80,24 +82,25 @@ public class ClientesDAO {
             if (rs != null) {
 
                 //Pega as informaçoes da tabela;      
-                while (rs.next()) {
+                while(rs.next()) {
 
-                    String id = rs.getString("ID_CLIENTE");
-                    String nome = rs.getString("NOME");
-                    String cpf = rs.getString("CPF");
-                    String telefone = rs.getString("TELEFONE");
-                    String email = rs.getString("EMAIL");
-                    String sexo = rs.getString("SEXO");
-                    String estadoCivil = rs.getString("ESTADO_CIVIL");
-                    String dataNascimento = rs.getString("DATA_NASCIMENTO");
+                    String id = rs.getString("id_cliente");
+                    String nome = rs.getString("nome");
+                    String cpf = rs.getString("cpf");
+                    String telefone = rs.getString("telefone");
+                    String email = rs.getString("email");
+                    String sexo = rs.getString("sexo");
+                    String estadoCivil = rs.getString("estado_civil");
+                    String dataNascimento = rs.getString("data_nascimento");
 
                     Integer idCliente = Integer.parseInt(id);
 
                     //Converte a variavel de string para char
                     char sexoChar = (!sexo.isEmpty()) ? sexo.charAt(0) : '\0';
+                    char estadoCivilChar = (!estadoCivil.isEmpty()) ? estadoCivil.charAt(0) : '\0';
 
                     //Passa as informaçoes para o obj cliente
-                    Cliente cliente = new Cliente(idCliente, nome, cpf, telefone, email, sexoChar, estadoCivil, dataNascimento);
+                    Cliente cliente = new Cliente(idCliente, nome, cpf, telefone, email, sexoChar, estadoCivilChar, dataNascimento);
 
                     //Add na lista
                     lista.add(cliente);
@@ -132,14 +135,14 @@ public class ClientesDAO {
 
             //Passo 3 - Preparar o comando SQL
             comandoSQL
-                    = conexao.prepareStatement("UPDATE clientes SET NOME = ?, CPF = ?, TELEFONE = ?, EMAIL = ?, SEXO = ?, ESTADO_CIVIL = ?, DATA_NASCIMENTO = ? WHERE ID_CLIENTE = ?");
+                    = conexao.prepareStatement("UPDATE clientes SET nome = ?, cpf = ?, telefone = ?, email = ?, sexo = ?, estado_civil = ?, data_nascimento = ? WHERE id_cliente = ?");
 
             comandoSQL.setString(1, cliente.getNome());
             comandoSQL.setString(2, cliente.getCpf());
             comandoSQL.setString(3, cliente.getTelefone());
             comandoSQL.setString(4, cliente.getEmail());
             comandoSQL.setString(5, String.valueOf(cliente.getSexo()));
-            comandoSQL.setString(6, cliente.getEstadoCivil());
+            comandoSQL.setString(6, Character.toString(cliente.getEstadoCivil()));
             comandoSQL.setString(7, cliente.dataFormatada());
             comandoSQL.setInt(8, cliente.getIdCliente());
 
@@ -172,14 +175,14 @@ public class ClientesDAO {
             conexao.setAutoCommit(false);
 
             // Passo 1 - Preparar o comando SQL para excluir endereço relacionado ao Id_cliente
-            comandoSQLEndereco = conexao.prepareStatement("DELETE FROM endereco WHERE id_clientes = ?");
+            comandoSQLEndereco = conexao.prepareStatement("DELETE FROM enderecos WHERE id_cliente = ?");
             comandoSQLEndereco.setInt(1, idClienteExcluir);
 
             // Passo 2 - Executar o comando para excluir endereço
             int linhasAfetadasEndereco = comandoSQLEndereco.executeUpdate();
 
             // Passo 3 - Preparar o comando SQL para excluir id do cliente na tabela cliente
-            comandoSQLCliente = conexao.prepareStatement("DELETE FROM clientes WHERE ID_CLIENTE = ?");
+            comandoSQLCliente = conexao.prepareStatement("DELETE FROM clientes WHERE id_cliente = ?");
             comandoSQLCliente.setInt(1, idClienteExcluir);
 
             // Passo 4 - Executar o comando para excluir cliente

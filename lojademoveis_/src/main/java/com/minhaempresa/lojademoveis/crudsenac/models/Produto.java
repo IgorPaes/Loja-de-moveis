@@ -15,10 +15,7 @@ public class Produto {
     private Double preco;
     private Integer quantidade;
     
-    
-    
-    Produto() {
-    }
+    public Produto() {}
 
     public Produto(Integer codProduto, String nome, String marca, Double preco, String categoria, Integer quantidade, String descProduto) {
         this.codProduto = codProduto;

@@ -25,7 +25,7 @@ public class ProdutosDAO {
         try {
         conn = Conexao.abrirConexao();
         
-        PreparedStatement comandoSQL = conn.prepareStatement("INSERT INTO produtos (NOME, MARCA, PRECO, CATEGORIA, QUANTIDADE, DESCRICAO_PRODUTO) VALUES(?,?,?,?,?,?)",
+        PreparedStatement comandoSQL = conn.prepareStatement("INSERT INTO produtos (nome,marca,preco,categoria,quantidade,descricao) VALUES(?,?,?,?,?,?)",
                      PreparedStatement.RETURN_GENERATED_KEYS);
         
         comandoSQL.setString(1, produtos.getNome());
@@ -77,13 +77,13 @@ public class ProdutosDAO {
          if (rs != null) {
 
                 while (rs.next()) {
-                    int id = rs.getInt("CODIGO_PRODUTO");
-                    String nome = rs.getString("NOME");
-                    String marca = rs.getString("MARCA");
-                    double preco = rs.getDouble("PRECO");
-                    String categoria = rs.getString("CATEGORIA");
-                    int quantidade = rs.getInt("Quantidade");
-                    String descProduto = rs.getString("DESCRICAO_PRODUTO");
+                    int id = rs.getInt("id_produto");
+                    String nome = rs.getString("nome");
+                    String marca = rs.getString("marca");
+                    double preco = rs.getDouble("preco");
+                    String categoria = rs.getString("categoria");
+                    int quantidade = rs.getInt("quantidade");
+                    String descProduto = rs.getString("descricao");
 
                     Produto produtos = new Produto(id, nome, marca, preco, categoria, quantidade, descProduto);
 
@@ -108,7 +108,7 @@ public class ProdutosDAO {
     }
     
     public static boolean alterarProduto(int codProduto, Produto produto) throws ClassNotFoundException, SQLException{
-         conn = null;
+        conn = null;
         PreparedStatement comandoSQL = null;
         boolean retorno = false;
 
@@ -116,7 +116,7 @@ public class ProdutosDAO {
 
         try {
             comandoSQL = conn.prepareStatement(
-                    "UPDATE produtos SET NOME = ?, MARCA = ?, PRECO = ?, CATEGORIA = ?, QUANTIDADE = ?, DESCRICAO_PRODUTO = ? WHERE CODIGO_PRODUTO = ? ");
+                    "UPDATE produtos SET nome = ?, marca = ?, preco = ?, categoria = ?, quantidade = ?, descricao = ? WHERE id_produto = ? ");
 
             comandoSQL.setString(1, produto.getNome());
             comandoSQL.setString(2, produto.getMarca());
@@ -147,7 +147,7 @@ public class ProdutosDAO {
         
         try {
             
-            comandoSQL = conn.prepareStatement( "DELETE FROM produtos WHERE CODIGO_PRODUTO = ? ");
+            comandoSQL = conn.prepareStatement( "DELETE FROM produtos WHERE id_produto = ? ");
             comandoSQL.setInt(1, codProduto);
             
            int linhasAfetadas = comandoSQL.executeUpdate();

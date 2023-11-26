@@ -16,12 +16,11 @@ public class Endereco {
     private String cidade;
     private String bairro;
     private String complemento;
-   
 
     public Endereco() {
     }
     
-    public Endereco(String cep, String logradouro, int numero, String cidade, String bairro, String complemento ){
+    public Endereco(String cep, String logradouro, int numero, String cidade, String bairro, String complemento){
         this.cep = cep;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -78,11 +77,10 @@ public class Endereco {
         this.cep = cep;
     }
     
-      public  String removerCaracteresEspeciaisCep(){
-       String texto = this.cep.replace("-", "");
-       
-       return texto;
-       
-   }
+    public String removerCaracteresEspeciaisCep(){
+        String texto = this.cep.replace("-", "");
+
+        return texto;
+    }
     
 }

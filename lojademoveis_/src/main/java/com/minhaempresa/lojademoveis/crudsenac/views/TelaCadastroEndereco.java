@@ -84,6 +84,11 @@ public class TelaCadastroEndereco extends javax.swing.JFrame {
         jLabel5.setText("Complemento:");
 
         btnVoltarEndereço.setText("Voltar");
+        btnVoltarEndereço.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarEndereçoActionPerformed(evt);
+            }
+        });
 
         btnConfirmarEndereço.setText("Cadastrar");
         btnConfirmarEndereço.addActionListener(new java.awt.event.ActionListener() {
@@ -227,21 +232,15 @@ public class TelaCadastroEndereco extends javax.swing.JFrame {
             String bairro = txtBairro.getText();
             String complemento = txtComplemento.getText();
 
-            boolean retorno;
-
             Endereco infosEndereco = new Endereco(cep, logradouro, numero, cidade, bairro, complemento);
+            
+            boolean retornoEndereco = EnderecoDAO.salvar(infosEndereco);
 
-            retorno = EnderecoDAO.salvar(infosEndereco, idCliente);
-
-            if (retorno) {
-                JOptionPane.showMessageDialog(rootPane, "Sucesso ");
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Falha ");
+            if(retornoEndereco) {
+                dispose();
+            }else {
+                JOptionPane.showMessageDialog(null, "Falhou!");
             }
-
-            TelaInicial tela = new TelaInicial();
-            tela.setVisible(true);
-            dispose();
         
         } catch (ConsultaCepException | NumberFormatException e) {
             System.out.println(e.getMessage());
@@ -274,6 +273,10 @@ public class TelaCadastroEndereco extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_txtCepKeyReleased
+
+    private void btnVoltarEndereçoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarEndereçoActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnVoltarEndereçoActionPerformed
 
     /**
      * @param args the command line arguments
