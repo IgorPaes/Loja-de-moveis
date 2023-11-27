@@ -1,5 +1,17 @@
 package com.minhaempresa.lojademoveis.crudsenac.views;
 
+import com.minhaempresa.lojademoveis.crudsenac.dao.ClientesDAO;
+import com.minhaempresa.lojademoveis.crudsenac.dao.RelatorioDAO;
+import com.minhaempresa.lojademoveis.crudsenac.dao.VendasDAO;
+import com.minhaempresa.lojademoveis.crudsenac.models.Cliente;
+import com.minhaempresa.lojademoveis.crudsenac.models.Vendas;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -30,13 +42,13 @@ public class TelaRelatorio extends javax.swing.JFrame {
         btnGrupoRelatSintético = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblRelatorio = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jPanel5 = new javax.swing.JPanel();
+        btnSemanal = new javax.swing.JRadioButton();
+        btnMensal = new javax.swing.JRadioButton();
         jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnAtualizarRelatorio = new javax.swing.JButton();
+        txtTotalVendas = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -51,7 +63,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Relatório Sintético"));
         jPanel1.setMaximumSize(new java.awt.Dimension(203, 23));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblRelatorio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -62,38 +74,27 @@ public class TelaRelatorio extends javax.swing.JFrame {
                 "Valor Venda", "Cliente", "Data Compra"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblRelatorio);
 
         jLabel2.setText("Período:");
 
-        btnGrupoRelatSintético.add(jRadioButton1);
-        jRadioButton1.setText("Semanal");
+        btnGrupoRelatSintético.add(btnSemanal);
+        btnSemanal.setText("Semanal");
+        btnSemanal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSemanalActionPerformed(evt);
+            }
+        });
 
-        btnGrupoRelatSintético.add(jRadioButton2);
-        jRadioButton2.setText("Mensal");
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total das Vendas"));
-        jPanel5.setMaximumSize(new java.awt.Dimension(203, 23));
-        jPanel5.setMinimumSize(new java.awt.Dimension(203, 23));
-        jPanel5.setVerifyInputWhenFocusTarget(false);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 206, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        btnGrupoRelatSintético.add(btnMensal);
+        btnMensal.setText("Mensal");
 
         jButton2.setText("Detalhes Da Compra");
 
-        jButton1.setText("Atualizar Relatório");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAtualizarRelatorio.setText("Atualizar Relatório");
+        btnAtualizarRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAtualizarRelatorioActionPerformed(evt);
             }
         });
 
@@ -106,29 +107,28 @@ public class TelaRelatorio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton1)
+                .addComponent(btnSemanal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMensal, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAtualizarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(52, 52, 52)
+                .addComponent(txtTotalVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jRadioButton2)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jLabel2)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMensal)
+                    .addComponent(btnSemanal)
+                    .addComponent(jLabel2)
+                    .addComponent(btnAtualizarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotalVendas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 27, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -163,17 +163,11 @@ public class TelaRelatorio extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane2)
-                .addContainerGap())
+            .addComponent(jScrollPane2)
         );
 
         jMenu1.setText("Opções");
@@ -229,9 +223,54 @@ public class TelaRelatorio extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mnuAbrePrincipalActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAtualizarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarRelatorioActionPerformed
+        
+        if(btnSemanal.isSelected() ){
+            
+        ArrayList<Vendas> vendas = null;
+        try {
+            vendas = RelatorioDAO.relatorioSintetico();
+  
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }   catch (ClassNotFoundException ex) {
+                Logger.getLogger(TelaRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        if (vendas != null){
+            DefaultTableModel modelo = (DefaultTableModel) tblRelatorio.getModel();
+            modelo.setRowCount(0);
+
+            for (Vendas relatorio : vendas) {
+                modelo.addRow(new String[]{
+                    String.valueOf(relatorio.getTotalPagar()),
+                    String.valueOf(relatorio.getNomeCliente()),
+                    String.valueOf(relatorio.getData()),
+
+                });
+                
+            }
+            
+            int totalValores = 0;
+            int rowCount = modelo.getRowCount();
+            for(int i = 0; i < rowCount; i++) {
+                Object valorUni = modelo.getValueAt(i, 0);
+                totalValores += Double.parseDouble((String) valorUni);
+            }
+
+            String Total = String.valueOf(totalValores);
+            
+            txtTotalVendas.setText(Total);
+        
+        }
+        }else {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao listar produtos");
+        } 
+        
+    }//GEN-LAST:event_btnAtualizarRelatorioActionPerformed
+
+    private void btnSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSemanalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSemanalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,8 +309,10 @@ public class TelaRelatorio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizarRelatorio;
     private javax.swing.ButtonGroup btnGrupoRelatSintético;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JRadioButton btnMensal;
+    private javax.swing.JRadioButton btnSemanal;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
@@ -279,14 +320,12 @@ public class TelaRelatorio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JMenuItem mnuAbrePrincipal;
     private javax.swing.JMenuItem mnuSairRelatorio;
+    private javax.swing.JTable tblRelatorio;
+    private javax.swing.JLabel txtTotalVendas;
     // End of variables declaration//GEN-END:variables
 }

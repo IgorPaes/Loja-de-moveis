@@ -119,7 +119,7 @@ public class VendasDAO {
         boolean retorno = false;
         
         try (Connection conn = Conexao.abrirConexao();
-            PreparedStatement query = conn.prepareStatement("INSERT INTO itens_venda (id_venda, id_produto, quantidade, preco_unitario) VALUES (?, ?, ?, ?)");
+            PreparedStatement query = conn.prepareStatement("INSERT INTO itens_venda (id_venda, id_produto, quantidade, preco_unidade) VALUES (?, ?, ?, ?)");
         ) {
             query.setInt(1, idVenda);
             query.setInt(2, idProduto);
