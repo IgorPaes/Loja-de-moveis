@@ -187,7 +187,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        btnCadastrarEnd.setText("Cadastrar Endereço");
+        btnCadastrarEnd.setText("Endereço");
         btnCadastrarEnd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarEndActionPerformed(evt);
@@ -280,11 +280,12 @@ public class TelaInicial extends javax.swing.JFrame {
                                     .addComponent(jLabel5))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnCadastrarEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                                     .addComponent(txtTelefone)
                                     .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                                    .addComponent(txtCpf)))
+                                    .addComponent(txtCpf)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(btnCadastrarEnd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
                                 .addComponent(jLabel6))))
@@ -360,9 +361,9 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addComponent(btnCadastrarEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(87, 87, 87)
+                        .addGap(67, 67, 67)
                         .addComponent(btnCadastrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77))
+                        .addGap(94, 94, 94))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -423,7 +424,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel13.setText("Categoria:");
 
-        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar...", "Quarto", "Sala de Jantar", "Cozinha", "Sala de Estar", "Banheiro", "Escritório" }));
+        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "Quarto", "Sala de Jantar", "Cozinha", "Sala de Estar", "Banheiro", "Escritório" }));
         comboCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboCategoriaActionPerformed(evt);
@@ -484,13 +485,12 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnCadastrarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel12)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCadastrarProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(27, 27, 27)
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -547,8 +547,8 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCadastrarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(btnCadastrarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -958,6 +958,7 @@ public class TelaInicial extends javax.swing.JFrame {
             if (produtos != null && produtos.getCodProduto() > 0) {
                 codProduto = produtos.getCodProduto();
                 JOptionPane.showMessageDialog(rootPane, "Sucesso ao cadastrar o produto");
+                limparCamposProdutos();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Erro ao cadastrar o produto");
             }
@@ -969,12 +970,9 @@ public class TelaInicial extends javax.swing.JFrame {
                 if (ProdutosDAO.alterarProduto(codProduto, produtos)) {
                     JOptionPane.showMessageDialog(rootPane, "Alterações salvas com sucesso");
 
-                    // Atualiza a tabela de produtos
                     atualizarTabelaProduto();
                     limparCamposProdutos();
-                    
 
-                   
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Falha ao salvar as alterações");
                 }
@@ -1042,9 +1040,7 @@ public class TelaInicial extends javax.swing.JFrame {
             int quantidade = Integer.parseInt(String.valueOf(modelo.getValueAt(linhaSelecionada, 5)));
 
             if (id >= 0) {
-                Produto alterarProdutos = new Produto(id, nome, marca, preco, categoria, quantidade);
-                this.codProduto = id;
-
+ 
                 String precoConvetido = String.valueOf(preco);
                 String qta = String.valueOf(quantidade);
 
@@ -1054,7 +1050,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 txtPreco.setText(precoConvetido);
                 comboCategoria.setSelectedItem(categoria);
                 txtQuantidade.setText(qta);
-                comboCategoria.setSelectedItem(categoria);
+                
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Falha ao selecionar o Produto");
             }
@@ -1291,6 +1287,7 @@ public class TelaInicial extends javax.swing.JFrame {
             if(sexo == 'M') {sexoPronto = "Masculino";}
             else {sexoPronto = "Feminino";}
             
+            String estadoCivilPronto = converteEstadoCivil(estadoCivil);
 
             if (id >= 0) {
                 Cliente alterarCliente = new Cliente(id, nome, cpf, telefone, email, sexo, estadoCivil, dataFormatadaAmericano);
@@ -1302,7 +1299,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 txtTelefone.setText(telefone);
                 txtEmail.setText(email);
                 comboSexo.setSelectedItem(sexoPronto);
-                comboEstadoCivil.setSelectedItem(estadoCivil);
+                comboEstadoCivil.setSelectedItem(estadoCivilPronto);
                 txtData.setText(dataFormatada);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Falha ao selecionar o cliente");
@@ -1313,6 +1310,28 @@ public class TelaInicial extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnAlterarClienteActionPerformed
 
+    public static String converteEstadoCivil(char estadoCivil) {
+        
+        String estadoCivilCompleto = "";
+        
+        switch(estadoCivil) {
+            case 'S':
+                estadoCivilCompleto = "Solteiro";
+            break;
+            case 'C':
+                estadoCivilCompleto = "Casado";
+            break;
+            case 'V':
+                estadoCivilCompleto = "Viúvo";
+            break;
+            case 'D':
+                estadoCivilCompleto = "Divorciado";
+            break;
+        }
+        
+        return estadoCivilCompleto;
+    }
+    
     private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataActionPerformed
@@ -1595,20 +1614,18 @@ public class TelaInicial extends javax.swing.JFrame {
         txtCpf.setText("");
         txtTelefone.setText("");
         txtEmail.setText("");
-        comboSexo.removeAll();
-        comboEstadoCivil.removeAll();
+        comboSexo.setSelectedItem("Selecionar");
+        comboEstadoCivil.setSelectedItem("Selecionar");
         txtData.setText("");
-       
     }
-        public void limparCamposProdutos(){
+    
+    public void limparCamposProdutos() {
         txtNomeMovel.setText("");
         txtMarca.setText("");
         txtPreco.setText("");
-        comboCategoria.removeAll();
-        comboSexo.removeAll();
+        comboCategoria.setSelectedItem("Selecionar");
         txtQuantidade.setText("");
         txtDescProduto.setText("");
-       
     }
 
     /**

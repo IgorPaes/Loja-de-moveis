@@ -5,7 +5,6 @@
 package com.minhaempresa.lojademoveis.crudsenac.dao;
 
 import com.minhaempresa.lojademoveis.crudsenac.db.Conexao;
-import com.minhaempresa.lojademoveis.crudsenac.models.Cliente;
 import com.minhaempresa.lojademoveis.crudsenac.models.Endereco;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,7 +51,7 @@ public class EnderecoDAO {
     public static int pegarId() {
     
         ResultSet rs = null;
-        int idEndereco = -1;
+        int idEndereco = 0;
 
         try {
             conn = Conexao.abrirConexao();

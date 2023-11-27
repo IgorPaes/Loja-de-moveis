@@ -5,14 +5,12 @@
 package com.minhaempresa.lojademoveis.crudsenac.dao;
 
 import com.minhaempresa.lojademoveis.crudsenac.db.Conexao;
-import com.minhaempresa.lojademoveis.crudsenac.models.Venda;
 import com.minhaempresa.lojademoveis.crudsenac.models.Vendas;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 public class VendasDAO {
    
@@ -144,5 +142,3 @@ public class VendasDAO {
     }
  
 }
-    
-    
