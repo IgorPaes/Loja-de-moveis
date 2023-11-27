@@ -498,7 +498,7 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(btnExclurProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1076, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -944,6 +944,7 @@ public class TelaInicial extends javax.swing.JFrame {
         String descProduto = txtDescProduto.getText();
 
         Produto produtos = new Produto(nome, marca, preco, categoria, quantidade, descProduto);
+        
         if (codProduto == 0) {
             try {
                 produtos = ProdutosDAO.salvar(produtos);
@@ -1180,9 +1181,10 @@ public class TelaInicial extends javax.swing.JFrame {
             }
 
             calcDescUni = totalValores - (totalValores * 10/100);
+            double desconto = (totalValores * 10/100);
 
-            txtVT1.setText("Desconto: " + calcDescUni);
-            txtVT3.setText("Total: R$ " + (calcDescUni));
+            txtVT1.setText("Desconto: " + desconto);
+            txtVT3.setText("Total: R$ " + calcDescUni);
             
             int desc = 10;
             txtDesconto.setText(desc + "%");
@@ -1496,7 +1498,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 totalValores += ((Number) valorUni).intValue();
             }
 
-            calcDescUni = totalValores - (totalValores * 10/100);
+            calcDescUni = totalValores - (totalValores * (10/100));
 
             txtVT1.setText("Desconto: " + calcDescUni);
             txtVT3.setText("Total: R$ " + calcDescUni);
