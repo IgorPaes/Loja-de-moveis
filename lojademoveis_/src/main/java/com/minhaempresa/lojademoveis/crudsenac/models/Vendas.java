@@ -19,8 +19,12 @@ public class Vendas {
         this.nomeCliente = nomeCliente;
         this.data = data;
     }
-    
-    
+
+    public Vendas(String nomeProduto, Integer quantidade) {
+        this.nomeProduto = nomeProduto;
+        this.quantidade = quantidade;
+        
+    }
 
     public Vendas(Integer codProdutoFK, Integer quantidade, String nomeProduto, String nomeCliente, String enderecoCliente, String cpfCliente, String categoria, Float valorUnit, Double desconto, Double descontoTotal, Double TotalPagar) {
         this.codProdutoFK = codProdutoFK;

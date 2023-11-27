@@ -66,6 +66,55 @@ public class RelatorioDAO {
         }
 
         return lista;
+    }          
+    
+    public static ArrayList<Vendas> relatorioAnalitico() throws ClassNotFoundException, SQLException{
+         ArrayList<Vendas> lista = new ArrayList<>();
+         conn = null;
+         PreparedStatement comandoSQL = null;
+         ResultSet rs = null;
+        
+         
+         conn = Conexao.abrirConexao();
+         
+          comandoSQL = conn.prepareStatement("SELECT p.nome AS nome_produto, iv.quantidade\n" +
+"                FROM vendas v \n" +
+"                JOIN itens_venda iv ON v.id_venda = iv.id_venda \n" +
+"                JOIN produtos p ON iv.id_produto = p.id_produto",
+                     PreparedStatement.RETURN_GENERATED_KEYS);
+        
+          rs = comandoSQL.executeQuery();
+          
+          try{ 
+         
+         if (rs != null) {
+
+                while (rs.next()) {
+                    String nome = rs.getString("nome_produto");
+                    int quantidade = rs.getInt("quantidade");
+                    
+                   
+
+                    Vendas venda = new Vendas(nome, quantidade);
+
+                    lista.add(venda);
+
+                }
+
+            }
+        }
+             catch (Exception e) {
+            System.out.println("erro para listar -> " + e.getMessage());
+            lista = null;
+        } finally {
+
+            if (conn != null) {
+               Conexao.fecharConexao();
+            }
+
+        }
+
+        return lista;
     }             
     
 }

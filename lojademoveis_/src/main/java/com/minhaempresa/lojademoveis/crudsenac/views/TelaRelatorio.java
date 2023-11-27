@@ -1,9 +1,6 @@
 package com.minhaempresa.lojademoveis.crudsenac.views;
 
-import com.minhaempresa.lojademoveis.crudsenac.dao.ClientesDAO;
 import com.minhaempresa.lojademoveis.crudsenac.dao.RelatorioDAO;
-import com.minhaempresa.lojademoveis.crudsenac.dao.VendasDAO;
-import com.minhaempresa.lojademoveis.crudsenac.models.Cliente;
 import com.minhaempresa.lojademoveis.crudsenac.models.Vendas;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,13 +43,13 @@ public class TelaRelatorio extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnSemanal = new javax.swing.JRadioButton();
         btnMensal = new javax.swing.JRadioButton();
-        jButton2 = new javax.swing.JButton();
+        btnDetalhesCompra = new javax.swing.JButton();
         btnAtualizarRelatorio = new javax.swing.JButton();
         txtTotalVendas = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblRelatorioAnalitico = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mnuAbrePrincipal = new javax.swing.JMenuItem();
@@ -89,7 +86,12 @@ public class TelaRelatorio extends javax.swing.JFrame {
         btnGrupoRelatSintético.add(btnMensal);
         btnMensal.setText("Mensal");
 
-        jButton2.setText("Detalhes Da Compra");
+        btnDetalhesCompra.setText("Detalhes Da Compra");
+        btnDetalhesCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetalhesCompraActionPerformed(evt);
+            }
+        });
 
         btnAtualizarRelatorio.setText("Atualizar Relatório");
         btnAtualizarRelatorio.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +102,6 @@ public class TelaRelatorio extends javax.swing.JFrame {
 
         txtTotalVendas.setBackground(new java.awt.Color(0, 0, 0));
         txtTotalVendas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        txtTotalVendas.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,7 +118,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAtualizarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDetalhesCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(txtTotalVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
@@ -125,17 +126,16 @@ public class TelaRelatorio extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 1, Short.MAX_VALUE)
+                .addContainerGap(1, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDetalhesCompra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtTotalVendas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnMensal)
                             .addComponent(btnSemanal)
                             .addComponent(jLabel2)
-                            .addComponent(btnAtualizarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTotalVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnAtualizarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -153,7 +153,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Relatório Analítico"));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblRelatorioAnalitico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -164,7 +164,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
                 "Produtos Vendidos", "Quantidade"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblRelatorioAnalitico);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -232,7 +232,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
 
     private void btnAtualizarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarRelatorioActionPerformed
         
-        if(btnSemanal.isSelected() ){
+        if(btnSemanal.isSelected() || btnMensal.isSelected() ){
             
         ArrayList<Vendas> vendas = null;
         try {
@@ -279,6 +279,33 @@ public class TelaRelatorio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSemanalActionPerformed
 
+    private void btnDetalhesCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesCompraActionPerformed
+ ArrayList<Vendas> vendas = null;
+        try {
+            vendas = RelatorioDAO.relatorioAnalitico();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(TelaRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) tblRelatorioAnalitico.getModel();
+
+// Limpa o modelo da tabela antes de adicionar novas linhas
+        modelo.setRowCount(0);
+
+        if (vendas != null && !vendas.isEmpty()) {
+            for (Vendas relatorio : vendas) {
+                modelo.addRow(new Object[]{
+                    relatorio.getNomeProduto(),
+                    relatorio.getQuantidade(),});
+
+                System.out.println(relatorio.getNomeProduto());
+                JOptionPane.showMessageDialog(rootPane, relatorio.getNomeProduto());
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao buscar informações");
+        }
+    }//GEN-LAST:event_btnDetalhesCompraActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -319,10 +346,10 @@ public class TelaRelatorio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizarRelatorio;
+    private javax.swing.JButton btnDetalhesCompra;
     private javax.swing.ButtonGroup btnGrupoRelatSintético;
     private javax.swing.JRadioButton btnMensal;
     private javax.swing.JRadioButton btnSemanal;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
@@ -331,10 +358,10 @@ public class TelaRelatorio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JMenuItem mnuAbrePrincipal;
     private javax.swing.JMenuItem mnuSairRelatorio;
     private javax.swing.JTable tblRelatorio;
+    private javax.swing.JTable tblRelatorioAnalitico;
     private javax.swing.JLabel txtTotalVendas;
     // End of variables declaration//GEN-END:variables
 }
