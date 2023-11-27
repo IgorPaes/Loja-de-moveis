@@ -13,7 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class EnderecoDAO {
     
@@ -67,7 +66,6 @@ public class EnderecoDAO {
             if(rs.next()) {
                 // Acessar o valor da coluna "id_endereco" do resultado
                 idEndereco = rs.getInt("id_endereco");
-                JOptionPane.showMessageDialog(null, idEndereco);
             }
 
         } catch (ClassNotFoundException | SQLException ex) {

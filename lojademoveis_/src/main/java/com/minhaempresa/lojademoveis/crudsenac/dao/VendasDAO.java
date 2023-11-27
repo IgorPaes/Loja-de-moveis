@@ -11,8 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class VendasDAO {
    
@@ -60,7 +60,7 @@ public class VendasDAO {
         return cliente;
     }
     
-    public static Vendas mostraTabelaVendas(int id) throws ClassNotFoundException, SQLException{
+    public static Vendas mostraTabelaVendas(int id) throws ClassNotFoundException, SQLException {
         Vendas iVendas = new Vendas();
         
         try(Connection conn = Conexao.abrirConexao();
@@ -85,32 +85,64 @@ public class VendasDAO {
         return iVendas;
     }
 
-    public static boolean armazenarVenda(ArrayList<Venda> lista) throws ClassNotFoundException, SQLException {
+    public static int adicionaVenda(int idCliente, float total) throws ClassNotFoundException, SQLException {
         
-        boolean inseriu = false;
-
-        for (Venda vendas : lista) {
+        int idVenda = 0;
+        
             try (Connection conn = Conexao.abrirConexao();
-                   PreparedStatement SQL = conn.prepareStatement("INSERT INTO vendas (id_produto, quantidade, preco_total, data) VALUES (?, ?, ?, NOW())");
-) {
-                SQL.setInt(1, vendas.getIdProduto());
-                SQL.setDouble(2, vendas.getQuantidadeProduto());
-                SQL.setDouble(3, vendas.getValorTotal());
+                PreparedStatement query = conn.prepareStatement("INSERT INTO vendas (id_cliente, preco_total, data) VALUES (?, ?, NOW())", 
+  Statement.RETURN_GENERATED_KEYS);
+            ) {
+            
+            query.setInt(1, idCliente);
+            query.setDouble(2, total);
+            
+            int linhasAfetada = query.executeUpdate();
+            
+            if(linhasAfetada > 0) {
                 
-                int linhasAfetadas = SQL.executeUpdate();
+                ResultSet generatedKeys = query.getGeneratedKeys();
 
-                if (linhasAfetadas > 0) {
-                    inseriu = true;
+                if(generatedKeys.next()) {
+                    idVenda = generatedKeys.getInt(1);
                 }
-
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+                
+            }else {
+                System.out.println("Falhou!");
             }
+
         }
 
-        return inseriu;
+        return idVenda;
+    }
+    
+    public static boolean adicionaItemVenda(int idVenda, int idProduto, int quantidade, float precoUnidade) throws ClassNotFoundException, SQLException {
+        
+        boolean retorno = false;
+        
+        try (Connection conn = Conexao.abrirConexao();
+            PreparedStatement query = conn.prepareStatement("INSERT INTO itens_venda (id_venda, id_produto, quantidade, preco_unitario) VALUES (?, ?, ?, ?)");
+        ) {
+            query.setInt(1, idVenda);
+            query.setInt(2, idProduto);
+            query.setInt(3, quantidade);
+            query.setFloat(4, precoUnidade);
+            
+            query.executeUpdate();
+            retorno = true;
+        }
+        
+        return retorno;
+    }
+
+    public void setLocationRelativeTo(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void setVisible(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
  
-    }
+}
     
     

@@ -24,7 +24,7 @@ public class ClientesDAO {
 
         try {
             conn = Conexao.abrirConexao();
-            JOptionPane.showMessageDialog(null, obj.getIdEndereco());
+
             PreparedStatement comandoSQL = conn.prepareStatement("INSERT INTO clientes (nome, cpf, telefone, email, sexo, estado_civil, data_nascimento, id_endereco) VALUES(?,?,?,?,?,?,?,?)",
                      PreparedStatement.RETURN_GENERATED_KEYS);
             //comandoSQL.setInt(1, obj.g);
@@ -134,8 +134,7 @@ public class ClientesDAO {
             conexao = Conexao.abrirConexao();
 
             //Passo 3 - Preparar o comando SQL
-            comandoSQL
-                    = conexao.prepareStatement("UPDATE clientes SET nome = ?, cpf = ?, telefone = ?, email = ?, sexo = ?, estado_civil = ?, data_nascimento = ? WHERE id_cliente = ?");
+            comandoSQL = conexao.prepareStatement("UPDATE clientes SET nome = ?, cpf = ?, telefone = ?, email = ?, sexo = ?, estado_civil = ?, data_nascimento = ? WHERE id_cliente = ?");
 
             comandoSQL.setString(1, cliente.getNome());
             comandoSQL.setString(2, cliente.getCpf());
@@ -221,6 +220,36 @@ public class ClientesDAO {
         }
 
         return retorno;
+    }
+    
+    public static int pegarIdpeloCpf(String cpf) throws ParseException {
+        
+        ResultSet rs = null;
+        
+        int idCliente = 0;
+
+        try {
+            conn = Conexao.abrirConexao();
+
+            PreparedStatement comandoSQL = conn.prepareStatement("SELECT id_cliente FROM clientes WHERE cpf = ?",
+            PreparedStatement.RETURN_GENERATED_KEYS);
+            
+            comandoSQL.setString(1, cpf);
+            
+            //Passo 4 - Executar o comando
+            rs = comandoSQL.executeQuery();
+            
+            if(rs.next()) {
+                idCliente = rs.getInt("id_cliente");
+            }
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return idCliente;
     }
 
 }

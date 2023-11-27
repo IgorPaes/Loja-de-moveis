@@ -18,7 +18,7 @@ public class ProdutosDAO {
   
     public static Connection conn = null;
     
-    public static Produto salvar(Produto produtos) throws ClassNotFoundException, SQLException{
+    public static Produto salvar(Produto produtos) throws ClassNotFoundException, SQLException {
         
         boolean retorno = false;
        
