@@ -1,6 +1,9 @@
 package com.minhaempresa.lojademoveis.crudsenac.views;
 
+import com.minhaempresa.lojademoveis.crudsenac.dao.ClientesDAO;
 import com.minhaempresa.lojademoveis.crudsenac.dao.RelatorioDAO;
+import com.minhaempresa.lojademoveis.crudsenac.dao.VendasDAO;
+import com.minhaempresa.lojademoveis.crudsenac.models.Venda;
 import com.minhaempresa.lojademoveis.crudsenac.models.Vendas;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,6 +49,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
         btnDetalhesCompra = new javax.swing.JButton();
         btnAtualizarRelatorio = new javax.swing.JButton();
         txtTotalVendas = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -68,7 +72,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Valor Venda", "Cliente", "Data Compra"
+                "Nome Cliente", "Valor Venda", "Data Compra"
             }
         ));
         jScrollPane1.setViewportView(tblRelatorio);
@@ -86,7 +90,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
         btnGrupoRelatSintético.add(btnMensal);
         btnMensal.setText("Mensal");
 
-        btnDetalhesCompra.setText("Detalhes Da Compra");
+        btnDetalhesCompra.setText("Atualizar Análitico");
         btnDetalhesCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDetalhesCompraActionPerformed(evt);
@@ -101,7 +105,9 @@ public class TelaRelatorio extends javax.swing.JFrame {
         });
 
         txtTotalVendas.setBackground(new java.awt.Color(0, 0, 0));
-        txtTotalVendas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtTotalVendas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        jLabel1.setText("Total");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,25 +123,34 @@ public class TelaRelatorio extends javax.swing.JFrame {
                 .addComponent(btnMensal, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAtualizarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTotalVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(69, 69, 69)
                 .addComponent(btnDetalhesCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(txtTotalVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addGap(15, 15, 15))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(1, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDetalhesCompra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtTotalVendas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnMensal)
-                            .addComponent(btnSemanal)
-                            .addComponent(jLabel2)
-                            .addComponent(btnAtualizarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(16, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnMensal)
+                                .addComponent(btnSemanal)
+                                .addComponent(jLabel2)
+                                .addComponent(btnAtualizarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTotalVendas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnDetalhesCompra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -237,30 +252,27 @@ public class TelaRelatorio extends javax.swing.JFrame {
         ArrayList<Vendas> vendas = null;
         try {
             vendas = RelatorioDAO.relatorioSintetico();
-  
         } catch (SQLException ex) {
             Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }   catch (ClassNotFoundException ex) {
-                Logger.getLogger(TelaRelatorio.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if (vendas != null){
             DefaultTableModel modelo = (DefaultTableModel) tblRelatorio.getModel();
             modelo.setRowCount(0);
 
             for (Vendas relatorio : vendas) {
                 modelo.addRow(new String[]{
-                    String.valueOf(relatorio.getTotalPagar()),
                     String.valueOf(relatorio.getNomeCliente()),
+                    String.valueOf(relatorio.getTotalPagar()),
                     String.valueOf(relatorio.getData()),
-
-                });
-                
+                }); 
             }
             
-            int totalValores = 0;
+            double totalValores = 0;
             int rowCount = modelo.getRowCount();
             for(int i = 0; i < rowCount; i++) {
-                Object valorUni = modelo.getValueAt(i, 0);
+                Object valorUni = modelo.getValueAt(i, 1);
                 totalValores += Double.parseDouble((String) valorUni);
             }
 
@@ -280,30 +292,54 @@ public class TelaRelatorio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSemanalActionPerformed
 
     private void btnDetalhesCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesCompraActionPerformed
- ArrayList<Vendas> vendas = null;
+
+        String nomeCliente = "";
+        double totalVenda = 0;
+        String data = "";
+        
+        DefaultTableModel modelo = (DefaultTableModel) tblRelatorio.getModel();
+        
+        int rowIndex = tblRelatorio.getSelectedRow();
+        if(rowIndex != -1) {
+            
+            nomeCliente = (String) modelo.getValueAt(rowIndex, 0);
+            totalVenda = Double.parseDouble(modelo.getValueAt(rowIndex, 1).toString());
+            data = (String) modelo.getValueAt(rowIndex, 2);
+
+        } else {
+            System.out.println("Nenhuma linha selecionada.");
+        }
+        
+        int idCliente = ClientesDAO.pegarIdPeloNome(nomeCliente);
+        
+        int idVenda = 0;
         try {
-            vendas = RelatorioDAO.relatorioAnalitico();
+            idVenda = VendasDAO.capturaIdVenda(idCliente, totalVenda, data);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        ArrayList<Venda> lista = new ArrayList<>();
+        try {
+            lista = RelatorioDAO.buscarItensPorIdVenda(idVenda);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(TelaRelatorio.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        DefaultTableModel modelo = (DefaultTableModel) tblRelatorioAnalitico.getModel();
+        DefaultTableModel modeloTabela = (DefaultTableModel) tblRelatorioAnalitico.getModel();
 
-// Limpa o modelo da tabela antes de adicionar novas linhas
-        modelo.setRowCount(0);
+        // Limpa a tabela antes de adicionar novos dados
+        modeloTabela.setRowCount(0);
 
-        if (vendas != null && !vendas.isEmpty()) {
-            for (Vendas relatorio : vendas) {
-                modelo.addRow(new Object[]{
-                    relatorio.getNomeProduto(),
-                    relatorio.getQuantidade(),});
-
-                System.out.println(relatorio.getNomeProduto());
-                JOptionPane.showMessageDialog(rootPane, relatorio.getNomeProduto());
-            }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao buscar informações");
+                // Adiciona os itens à tabela
+        for (Venda item : lista) {
+            Object[] rowData = {item.getIdProduto(), item.getQuantidadeProduto()};
+            modeloTabela.addRow(rowData);
         }
+        
+        
     }//GEN-LAST:event_btnDetalhesCompraActionPerformed
 
     /**
@@ -350,6 +386,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnGrupoRelatSintético;
     private javax.swing.JRadioButton btnMensal;
     private javax.swing.JRadioButton btnSemanal;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;

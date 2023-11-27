@@ -26,6 +26,11 @@ public class Venda {
         this.quantidadeProduto = quantidadeProduto;
         this.valorTotal = valorTotal;
     }
+    
+    public Venda(int idProduto, int quantidadeProduto) {
+        this.idProduto = idProduto;
+        this.quantidadeProduto = quantidadeProduto;
+    }
 
     public int getIdCliente() {
         return idCliente;
@@ -65,6 +70,10 @@ public class Venda {
 
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    public Object getQuantidade() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

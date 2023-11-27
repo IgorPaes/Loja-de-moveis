@@ -250,5 +250,31 @@ public class ClientesDAO {
 
         return idCliente;
     }
+    
+    public static int pegarIdPeloNome(String nome) {
+        ResultSet rs = null;
+        int idCliente = 0;
+
+        try {
+            conn = Conexao.abrirConexao();
+
+            PreparedStatement comandoSQL = conn.prepareStatement("SELECT id_cliente FROM clientes WHERE nome = ?",
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+
+            comandoSQL.setString(1, nome);
+
+            // Passo 4 - Executar o comando
+            rs = comandoSQL.executeQuery();
+
+            if (rs.next()) {
+                idCliente = rs.getInt("id_cliente");
+            }
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return idCliente;
+    }
 
 }

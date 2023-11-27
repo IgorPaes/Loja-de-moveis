@@ -132,6 +132,29 @@ public class VendasDAO {
         
         return retorno;
     }
+    
+    public static int capturaIdVenda(int idCliente, double totalVenda, String data) throws ClassNotFoundException, SQLException {
+        int idVenda = 0;
+
+        try (Connection conn = Conexao.abrirConexao();
+             PreparedStatement query = conn.prepareStatement("SELECT id_venda FROM vendas WHERE id_cliente = ? AND preco_total = ? AND data = ?");
+        ) {
+            query.setInt(1, idCliente);
+            query.setDouble(2, totalVenda);
+            query.setString(3, data);
+
+            try (ResultSet rs = query.executeQuery()) {
+                if (rs.next()) {
+                    idVenda = rs.getInt("id_venda");
+                }
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro!");
+        }
+
+        return idVenda;
+    }
 
     public void setLocationRelativeTo(Object object) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

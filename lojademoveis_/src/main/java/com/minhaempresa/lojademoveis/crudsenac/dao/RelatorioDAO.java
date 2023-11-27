@@ -7,6 +7,7 @@ package com.minhaempresa.lojademoveis.crudsenac.dao;
 import static com.minhaempresa.lojademoveis.crudsenac.dao.ProdutosDAO.conn;
 import com.minhaempresa.lojademoveis.crudsenac.db.Conexao;
 import com.minhaempresa.lojademoveis.crudsenac.models.Produto;
+import com.minhaempresa.lojademoveis.crudsenac.models.Venda;
 import com.minhaempresa.lojademoveis.crudsenac.models.Vendas;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -67,54 +68,32 @@ public class RelatorioDAO {
 
         return lista;
     }          
-    
-    public static ArrayList<Vendas> relatorioAnalitico() throws ClassNotFoundException, SQLException{
-         ArrayList<Vendas> lista = new ArrayList<>();
-         conn = null;
-         PreparedStatement comandoSQL = null;
-         ResultSet rs = null;
-        
-         
-         conn = Conexao.abrirConexao();
-         
-          comandoSQL = conn.prepareStatement("SELECT p.nome AS nome_produto, iv.quantidade\n" +
-"                FROM vendas v \n" +
-"                JOIN itens_venda iv ON v.id_venda = iv.id_venda \n" +
-"                JOIN produtos p ON iv.id_produto = p.id_produto",
-                     PreparedStatement.RETURN_GENERATED_KEYS);
-        
-          rs = comandoSQL.executeQuery();
-          
-          try{ 
-         
-         if (rs != null) {
 
+    public static ArrayList<Venda> buscarItensPorIdVenda(int idVenda) throws ClassNotFoundException, SQLException {
+        
+        ArrayList<Venda> listaItens = new ArrayList<>();
+
+        try (Connection conn = Conexao.abrirConexao();
+             PreparedStatement comandoSQL = conn.prepareStatement(
+                     "SELECT id_produto, quantidade FROM itens_venda WHERE id_venda = ?")) {
+
+            comandoSQL.setInt(1, idVenda);
+
+            try (ResultSet rs = comandoSQL.executeQuery()) {
                 while (rs.next()) {
-                    String nome = rs.getString("nome_produto");
+                    int idProduto = rs.getInt("id_produto");
                     int quantidade = rs.getInt("quantidade");
-                    
-                   
 
-                    Vendas venda = new Vendas(nome, quantidade);
-
-                    lista.add(venda);
-
+                    Venda item = new Venda(idProduto, quantidade);
+                    listaItens.add(item);
                 }
-
             }
-        }
-             catch (Exception e) {
-            System.out.println("erro para listar -> " + e.getMessage());
-            lista = null;
-        } finally {
-
-            if (conn != null) {
-               Conexao.fecharConexao();
-            }
-
+        } catch (SQLException ex) {
+            System.out.println("Erro!");
+            // Trate a exceção conforme necessário
         }
 
-        return lista;
-    }             
-    
+        return listaItens;
+    }      
+
 }
