@@ -8,14 +8,11 @@ import com.minhaempresa.lojademoveis.crudsenac.dao.ClientesDAO;
 import com.minhaempresa.lojademoveis.crudsenac.dao.EnderecoDAO;
 import com.minhaempresa.lojademoveis.crudsenac.dao.ProdutosDAO;
 import com.minhaempresa.lojademoveis.crudsenac.dao.VendasDAO;
-import static com.minhaempresa.lojademoveis.crudsenac.dao.VendasDAO.buscarClientePorCep;
+import static com.minhaempresa.lojademoveis.crudsenac.dao.VendasDAO.buscarClientePorCpf;
 import static com.minhaempresa.lojademoveis.crudsenac.dao.VendasDAO.buscarProdutoPorId;
 import com.minhaempresa.lojademoveis.crudsenac.models.Cliente;
-import com.minhaempresa.lojademoveis.crudsenac.models.Endereco;
 import com.minhaempresa.lojademoveis.crudsenac.models.Vendas;
 import com.minhaempresa.lojademoveis.crudsenac.models.Produto;
-import com.minhaempresa.lojademoveis.crudsenac.models.TelaCadastro;
-import com.minhaempresa.lojademoveis.crudsenac.models.Venda;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -42,7 +38,6 @@ public class TelaInicial extends javax.swing.JFrame {
         this.idCliente = 0;
         this.codProduto = 0;
         initComponents();
-
     }
 
     /**
@@ -1038,7 +1033,16 @@ public class TelaInicial extends javax.swing.JFrame {
             Double preco = Double.parseDouble(modelo.getValueAt(linhaSelecionada, 3).toString());
             String categoria = modelo.getValueAt(linhaSelecionada, 4).toString();
             int quantidade = Integer.parseInt(String.valueOf(modelo.getValueAt(linhaSelecionada, 5)));
+            String descricao = "";
 
+            try {
+                descricao = ProdutosDAO.pegaDescricaoProduto(id);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             if (id >= 0) {
  
                 String precoConvetido = String.valueOf(preco);
@@ -1050,6 +1054,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 txtPreco.setText(precoConvetido);
                 comboCategoria.setSelectedItem(categoria);
                 txtQuantidade.setText(qta);
+                txtDescProduto.setText(descricao); 
                 
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Falha ao selecionar o Produto");
@@ -1127,7 +1132,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
             if (!cpfCliente.isEmpty()) {
                 
-                Vendas infosCliente = buscarClientePorCep(cpfCliente);
+                Vendas infosCliente = buscarClientePorCpf(cpfCliente);
 
                 if (infosCliente != null) {
                     lblNomeCliente.setText(infosCliente.getNomeCliente());

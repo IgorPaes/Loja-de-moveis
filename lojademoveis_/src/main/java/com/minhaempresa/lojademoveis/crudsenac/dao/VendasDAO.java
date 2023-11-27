@@ -34,7 +34,7 @@ public class VendasDAO {
         return produto;
     }
     
-    public static Vendas buscarClientePorCep(String cpfCliente) throws ClassNotFoundException, SQLException{
+    public static Vendas buscarClientePorCpf(String cpfCliente) throws ClassNotFoundException, SQLException{
         Vendas cliente = null;
         
         try (Connection conn = Conexao.abrirConexao();
@@ -50,11 +50,11 @@ public class VendasDAO {
                 if (rs.next()) {
                     cliente = new Vendas();
                     cliente.setNomeCliente(rs.getString("nome"));
-                    cliente.setEnderecoCliente(rs.getString("logradouro"));
-                    
+                    cliente.setEnderecoCliente(rs.getString("logradouro")); 
                 }    
             }
         }
+        
         return cliente;
     }
     

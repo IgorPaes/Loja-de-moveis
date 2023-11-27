@@ -115,8 +115,7 @@ public class ProdutosDAO {
         conn = Conexao.abrirConexao();
 
         try {
-            comandoSQL = conn.prepareStatement(
-                    "UPDATE produtos SET nome = ?, marca = ?, preco = ?, categoria = ?, quantidade = ?, descricao = ? WHERE id_produto = ? ");
+            comandoSQL = conn.prepareStatement("UPDATE produtos SET nome = ?, marca = ?, preco = ?, categoria = ?, quantidade = ?, descricao = ? WHERE id_produto = ?");
 
             comandoSQL.setString(1, produto.getNome());
             comandoSQL.setString(2, produto.getMarca());
@@ -163,17 +162,28 @@ public class ProdutosDAO {
         return retorno;
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    public static String pegaDescricaoProduto(int idProduto) throws ClassNotFoundException, SQLException{
+        
+        String descricaoProduto = "";
+        
+        try {
+            
+            conn = Conexao.abrirConexao();
+            
+            PreparedStatement query = conn.prepareStatement( "SELECT descricao FROM produtos WHERE id_produto = ?");
+            query.setInt(1, idProduto);
+            
+            try (ResultSet rs = query.executeQuery()) {
+                if (rs.next()) {
+                    descricaoProduto = rs.getString("descricao"); 
+                } 
+            }
+            
+        }catch (SQLException e) {
+             System.out.println("Erro ao selecionar a descrição.");
+        }
+         
+        return descricaoProduto;
+    }
     
 }
