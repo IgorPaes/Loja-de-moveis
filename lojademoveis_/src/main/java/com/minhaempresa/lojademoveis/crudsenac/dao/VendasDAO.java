@@ -91,12 +91,11 @@ public class VendasDAO {
 
         for (Venda vendas : lista) {
             try (Connection conn = Conexao.abrirConexao();
-                   PreparedStatement SQL = conn.prepareStatement("INSERT INTO vendas (id_produto, id_cliente, quantidade, preco, data) VALUES (?, ?, ?, ?, NOW())");
+                   PreparedStatement SQL = conn.prepareStatement("INSERT INTO vendas (id_produto, quantidade, preco_total, data) VALUES (?, ?, ?, NOW())");
 ) {
                 SQL.setInt(1, vendas.getIdProduto());
-                SQL.setDouble(2, vendas.getIdCliente());
-                SQL.setDouble(3, vendas.getQuantidadeProduto());
-                SQL.setDouble(4, vendas.getValorTotal());
+                SQL.setDouble(2, vendas.getQuantidadeProduto());
+                SQL.setDouble(3, vendas.getValorTotal());
                 
                 int linhasAfetadas = SQL.executeUpdate();
 

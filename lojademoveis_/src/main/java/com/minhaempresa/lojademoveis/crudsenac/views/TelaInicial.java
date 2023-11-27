@@ -1383,20 +1383,36 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
+        boolean vendeu = false;
+        
         ArrayList<Venda> listaTabela = new ArrayList<>();
         DefaultTableModel modelo = (DefaultTableModel) tblVendas.getModel();
-       int rowCount = modelo.getRowCount();
+       int rowCount = tblVendas.getRowCount();
 
         for (int i = 0; i < rowCount; i++) {
-           Venda objInfosLinha = new Venda();
+           Venda venda = null;
             
-            String idProduto = (String) modelo.getValueAt(i, 3);
-            String prcoProduto = (String) modelo.getValueAt(i, 4);
+            String codProduto = String.valueOf( modelo.getValueAt(i, 0));
+            String quantidade = String.valueOf( modelo.getValueAt(i, 3));
+            String precoProduto = String.valueOf( modelo.getValueAt(i, 4));
+ 
+            int idProduto = Integer.parseInt(codProduto);
+            int qtaProduto = Integer.parseInt(quantidade);
+            Double valorUnidade = Double.parseDouble(precoProduto);
             
+           venda = new Venda(idProduto,qtaProduto,valorUnidade);
            
+            listaTabela.add(venda);
             
-        }
-        
+            try {
+                vendeu = VendasDAO.armazenarVenda(listaTabela);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } 
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void selectPagementoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectPagementoMouseClicked

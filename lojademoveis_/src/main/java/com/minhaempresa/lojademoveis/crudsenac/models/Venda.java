@@ -20,6 +20,12 @@ public class Venda {
         this.formaPagamento = formaPagamento;
         this.valorTotal = valorTotal;
     }
+    
+    public Venda(int idProduto, int quantidadeProduto, double valorTotal) {
+        this.idProduto = idProduto;
+        this.quantidadeProduto = quantidadeProduto;
+        this.valorTotal = valorTotal;
+    }
 
     public int getIdCliente() {
         return idCliente;
